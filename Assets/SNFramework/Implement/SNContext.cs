@@ -10,10 +10,10 @@ namespace SNFramework
       : base ()
     {
       Context = new List<ISNEvent> ();
-      ContextModel = SNContextType.DEFAULT;
+      ContextModel = SNContextLevel.DEFAULT;
     }
 
-    public SNContextType ContextModel { get; set; }
+    public string ContextModel { get; set; }
 
     public List<ISNEvent> Context { get; set; }
 
@@ -49,7 +49,7 @@ namespace SNFramework
       } else {
         Context = new List<ISNEvent> ();
       }
-      ContextModel = SNContextType.DEFAULT;
+      ContextModel = SNContextLevel.DEFAULT;
       return this;
     }
 

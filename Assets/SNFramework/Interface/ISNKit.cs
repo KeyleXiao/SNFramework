@@ -6,11 +6,11 @@ namespace SNFramework
 {
   public interface ISNKit:ISN
   {
-    Dictionary<SNContextType, ISNContext> SNContexts { get; set; }
+    Dictionary<string, ISNContext> SNContexts { get; set; }
 
-    ISNContext GetContext (SNContextType context);
+    ISNContext GetContext (string context);
 
-    SNKit ResetContext (SNContextType context = SNContextType.DEFAULT);
+    SNKit ResetContext (string context = SNContextLevel.DEFAULT);
 
     SNKit ResetContext ();
 

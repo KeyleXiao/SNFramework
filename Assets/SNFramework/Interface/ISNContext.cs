@@ -8,7 +8,7 @@ namespace SNFramework
   {
     List<ISNEvent> Context { get; set; }
 
-    SNContextType ContextModel { get; set; }
+    string ContextModel { get; set; }
 
     ISNEvent GetSNEvent (string sign);
 

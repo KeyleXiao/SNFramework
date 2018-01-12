@@ -8,9 +8,9 @@ namespace SNFramework
   {
     public readonly string SNEventName;
     public readonly bool AutoRelease;
-    public readonly SNContextType context;
+    public readonly string context;
 
-    public SNMethodAttribute (string snEventName, SNContextType contextType = SNContextType.DEFAULT, bool autoRelease = true)
+    public SNMethodAttribute (string snEventName, string contextType = SNContextLevel.DEFAULT, bool autoRelease = true)
     {
       AutoRelease = autoRelease;
       context = contextType;

@@ -6,11 +6,11 @@ namespace SNFramework
 {
   public class SNKit :SN,ISNKit
   {
-    public Dictionary<SNContextType, ISNContext> SNContexts { get; set; }
+    public Dictionary<string, ISNContext> SNContexts { get; set; }
 
     private SNKit () : base ()
     {
-      SNContexts = new Dictionary<SNContextType, ISNContext> ();
+      SNContexts = new Dictionary<string, ISNContext> ();
     }
 
     private static SNKit instance;
@@ -111,108 +111,240 @@ namespace SNFramework
 
 
 
-    public SNKit Dispatch (string name, SNContextType context = SNContextType.DEFAULT)
+    public SNKit Dispatch (string name, string context = SNContextLevel.DEFAULT)
     {
-      var e = GetContext (context).GetSNEvent (name);
+      ISNEvent e = null;
+      if (context == SNContextLevel.BOARDCAST) {
+        foreach (var item in SNContexts.Values) {
+          e = item.GetSNEvent (name);
+          if (e != null) {
+            e.Dispatch (name);
+          }
+        }
+        return this;
+      }
+
+      e = GetContext (context).GetSNEvent (name);
       if (e != null) {
         e.Dispatch (name);
       }
       return this;
     }
 
-    public SNKit Dispatch<T> (string name, T arg1, SNContextType context = SNContextType.DEFAULT)
+    public SNKit Dispatch<T> (string name, T arg1, string context = SNContextLevel.DEFAULT)
     {
-      var e = GetContext (context).GetSNEvent (name);
+      ISNEvent e = null;
+      if (context == SNContextLevel.BOARDCAST) {
+        foreach (var item in SNContexts.Values) {
+          e = item.GetSNEvent (name);
+          if (e != null) {
+            e.Dispatch (name, arg1);
+          }
+        }
+        return this;
+      }
+
+      e = GetContext (context).GetSNEvent (name);
       if (e != null) {
         e.Dispatch (name, arg1);
       }
       return this;
     }
 
-    public SNKit Dispatch<T, U> (string name, T arg1, U arg2, SNContextType context = SNContextType.DEFAULT)
+    public SNKit Dispatch<T, U> (string name, T arg1, U arg2, string context = SNContextLevel.DEFAULT)
     {
-      var e = GetContext (context).GetSNEvent (name);
+      ISNEvent e = null;
+      if (context == SNContextLevel.BOARDCAST) {
+        foreach (var item in SNContexts.Values) {
+          e = item.GetSNEvent (name);
+          if (e != null) {
+            e.Dispatch (name, arg1, arg2);
+          }
+        }
+        return this;
+      }
+
+      e = GetContext (context).GetSNEvent (name);
       if (e != null) {
         e.Dispatch (name, arg1, arg2);
       }
       return this;
     }
 
-    public SNKit Dispatch<T, U, V> (string name, T arg1, U arg2, V arg3, SNContextType context = SNContextType.DEFAULT)
+    public SNKit Dispatch<T, U, V> (string name, T arg1, U arg2, V arg3, string context = SNContextLevel.DEFAULT)
     {
-      var e = GetContext (context).GetSNEvent (name);
+      ISNEvent e = null;
+      if (context == SNContextLevel.BOARDCAST) {
+        foreach (var item in SNContexts.Values) {
+          e = item.GetSNEvent (name);
+          if (e != null) {
+            e.Dispatch (name, arg1, arg2, arg3);
+          }
+        }
+        return this;
+      }
+
+      e = GetContext (context).GetSNEvent (name);
       if (e != null) {
         e.Dispatch (name, arg1, arg2, arg3);
       }
       return this;
     }
 
-    public SNKit Dispatch<T, U, V, W> (string name, T arg1, U arg2, V arg3, W arg4, SNContextType context = SNContextType.DEFAULT)
+    public SNKit Dispatch<T, U, V, W> (string name, T arg1, U arg2, V arg3, W arg4, string context = SNContextLevel.DEFAULT)
     {
-      var e = GetContext (context).GetSNEvent (name);
+      ISNEvent e = null;
+      if (context == SNContextLevel.BOARDCAST) {
+        foreach (var item in SNContexts.Values) {
+          e = item.GetSNEvent (name);
+          if (e != null) {
+            e.Dispatch (name, arg1, arg2, arg3, arg4);
+          }
+        }
+        return this;
+      }
+
+      e = GetContext (context).GetSNEvent (name);
       if (e != null) {
         e.Dispatch (name, arg1, arg2, arg3, arg4);
       }
       return this;
     }
 
-    public SNKit Dispatch<T, U, V, W, X> (string name, T arg1, U arg2, V arg3, W arg4, X arg5, SNContextType context = SNContextType.DEFAULT)
+    public SNKit Dispatch<T, U, V, W, X> (string name, T arg1, U arg2, V arg3, W arg4, X arg5, string context = SNContextLevel.DEFAULT)
     {
-      var e = GetContext (context).GetSNEvent (name);
+      ISNEvent e = null;
+      if (context == SNContextLevel.BOARDCAST) {
+        foreach (var item in SNContexts.Values) {
+          e = item.GetSNEvent (name);
+          if (e != null) {
+            e.Dispatch (name, arg1, arg2, arg3, arg4, arg5);
+          }
+        }
+        return this;
+      }
+      e = GetContext (context).GetSNEvent (name);
       if (e != null) {
         e.Dispatch (name, arg1, arg2, arg3, arg4, arg5);
       }
       return this;
     }
 
-    public TResult DispatchHasReturn<TResult> (string name, SNContextType context = SNContextType.DEFAULT)
+    public TResult DispatchHasReturn<TResult> (string name, string context = SNContextLevel.DEFAULT)
     {
-      var e = GetContext (context).GetSNEvent (name);
+      ISNEvent e = null;
+      if (context == SNContextLevel.BOARDCAST) {
+          
+        foreach (var item in SNContexts.Values) {
+          e = item.GetSNEvent (name);
+          if (e != null) {
+            return e.DispatchHasReturn <TResult> (name);
+          }
+        }
+        return default(TResult);
+      }
+
+      e = GetContext (context).GetSNEvent (name);
       if (e != null) {
         return   e.DispatchHasReturn <TResult> (name);
       }
       return default(TResult);
     }
 
-    public TResult DispatchHasReturn<T, TResult> (string name, T arg1, SNContextType context = SNContextType.DEFAULT)
+    public TResult DispatchHasReturn<T, TResult> (string name, T arg1, string context = SNContextLevel.DEFAULT)
     {
-      var e = GetContext (context).GetSNEvent (name);
+      ISNEvent e = null;
+      if (context == SNContextLevel.BOARDCAST) {
+        foreach (var item in SNContexts.Values) {
+          e = item.GetSNEvent (name);
+          if (e != null) {
+            return  e.DispatchHasReturn<T, TResult> (name, arg1);
+          }
+        }
+        return default(TResult);
+      }
+
+      e = GetContext (context).GetSNEvent (name);
       if (e != null) {
         return  e.DispatchHasReturn<T, TResult> (name, arg1);
       }
       return default(TResult);
     }
 
-    public TResult DispatchHasReturn<T, U, TResult> (string name, T arg1, U arg2, SNContextType context = SNContextType.DEFAULT)
+    public TResult DispatchHasReturn<T, U, TResult> (string name, T arg1, U arg2, string context = SNContextLevel.DEFAULT)
     {
-      var e = GetContext (context).GetSNEvent (name);
+      ISNEvent e = null;
+      if (context == SNContextLevel.BOARDCAST) {
+        foreach (var item in SNContexts.Values) {
+          e = item.GetSNEvent (name);
+          if (e != null) {
+            return  e.DispatchHasReturn<T, U, TResult> (name, arg1, arg2);
+          }
+        }
+        return default(TResult);
+      }
+
+      e = GetContext (context).GetSNEvent (name);
       if (e != null) {
         return  e.DispatchHasReturn<T, U, TResult> (name, arg1, arg2);
       }
       return default(TResult);
     }
 
-    public TResult DispatchHasReturn<T, U, V, TResult> (string name, T arg1, U arg2, V arg3, SNContextType context = SNContextType.DEFAULT)
+    public TResult DispatchHasReturn<T, U, V, TResult> (string name, T arg1, U arg2, V arg3, string context = SNContextLevel.DEFAULT)
     {
-      var e = GetContext (context).GetSNEvent (name);
+      ISNEvent e = null;
+      if (context == SNContextLevel.BOARDCAST) {
+        foreach (var item in SNContexts.Values) {
+          e = item.GetSNEvent (name);
+          if (e != null) {
+            return  e.DispatchHasReturn <T, U, V, TResult> (name, arg1, arg2, arg3);
+          }
+        }
+        return default(TResult);
+      }
+
+      e = GetContext (context).GetSNEvent (name);
       if (e != null) {
         return  e.DispatchHasReturn <T, U, V, TResult> (name, arg1, arg2, arg3);
       }
       return default(TResult);
     }
 
-    public TResult DispatchHasReturn<T, U, V, W, TResult> (string name, T arg1, U arg2, V arg3, W arg4, SNContextType context = SNContextType.DEFAULT)
+    public TResult DispatchHasReturn<T, U, V, W, TResult> (string name, T arg1, U arg2, V arg3, W arg4, string context = SNContextLevel.DEFAULT)
     {
-      var e = GetContext (context).GetSNEvent (name);
+      ISNEvent e = null;
+      if (context == SNContextLevel.BOARDCAST) {
+        foreach (var item in SNContexts.Values) {
+          e = item.GetSNEvent (name);
+          if (e != null) {
+            return  e.DispatchHasReturn<T, U, V, W, TResult> (name, arg1, arg2, arg3, arg4);
+          }
+        }
+        return default(TResult);
+      }
+
+      e = GetContext (context).GetSNEvent (name);
       if (e != null) {
         return  e.DispatchHasReturn<T, U, V, W, TResult> (name, arg1, arg2, arg3, arg4);
       }
       return default(TResult);
     }
 
-    public TResult DispatchHasReturn<T, U, V, W, X, TResult> (string name, T arg1, U arg2, V arg3, W arg4, X arg5, SNContextType context = SNContextType.DEFAULT)
+    public TResult DispatchHasReturn<T, U, V, W, X, TResult> (string name, T arg1, U arg2, V arg3, W arg4, X arg5, string context = SNContextLevel.DEFAULT)
     {
-      var e = GetContext (context).GetSNEvent (name);
+      ISNEvent e = null;
+      if (context == SNContextLevel.BOARDCAST) {
+        foreach (var item in SNContexts.Values) {
+          e = item.GetSNEvent (name);
+          if (e != null) {
+            return e.DispatchHasReturn <T, U, V, W, X, TResult> (name, arg1, arg2, arg3, arg4, arg5);
+          }
+        }
+        return default(TResult);
+      }
+
+      e = GetContext (context).GetSNEvent (name);
       if (e != null) {
         return e.DispatchHasReturn <T, U, V, W, X, TResult> (name, arg1, arg2, arg3, arg4, arg5);
       }
@@ -220,7 +352,7 @@ namespace SNFramework
     }
 
 
-    public SNKit ResetContext (SNContextType context = SNContextType.DEFAULT)
+    public SNKit ResetContext (string context = SNContextLevel.DEFAULT)
     {
       if (SNContexts.ContainsKey (context)) {
         if (SNContexts [context] == null) {
@@ -245,7 +377,7 @@ namespace SNFramework
       return this;
     }
 
-    public ISNContext GetContext (SNContextType context = SNContextType.DEFAULT)
+    public ISNContext GetContext (string context = SNContextLevel.DEFAULT)
     {
       if (SNContexts.ContainsKey (context)) {
         if (SNContexts [context] == null) {
@@ -266,13 +398,13 @@ namespace SNFramework
       if (SNContexts != null) {
         SNContexts.Clear ();
       } else {
-        SNContexts = new Dictionary<SNContextType, ISNContext> ();
+        SNContexts = new Dictionary<string, ISNContext> ();
       }
       return this;
     }
 
 
-    public ISNContext this [SNContextType context] {
+    public ISNContext this [string context] {
       get { return GetContext (context); }
     }
 

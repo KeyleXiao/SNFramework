@@ -6,18 +6,20 @@ namespace SNFramework
   public delegate TResult Func<in T,in U,in V,in W,in X,out TResult> (T arg1,U arg2,V arg3,W arg4,X arg5);
 
 
-
-  public static partial class SNEventName
+  /// <summary>
+  /// 定义不同类型的消息
+  /// </summary>
+  public partial class SNMsg
   {
-    /// <summary>
-    /// Default Queue
-    /// </summary>
-    public const string Msg0 = "0x0";
+    public const string ExampleMsg = "0x0";
   }
 
-  public enum SNContextType
+  /// <summary>
+  /// 根据不同的级别定制不同的通信上下文
+  /// </summary>
+  public partial class SNContextLevel
   {
-    DEFAULT = 0,
-    BOARDCAST = 2,
+    public const string DEFAULT = "0x0";
+    public const string BOARDCAST = "0x1";
   }
 }
