@@ -2,3 +2,8 @@ Library
 UnityPackageManager
 .DS_Store
 ProjectSettings
+obj
+Assembly-CSharp.csproj
+SNFramework.sln
+SNFramework.userprefs
+Temp

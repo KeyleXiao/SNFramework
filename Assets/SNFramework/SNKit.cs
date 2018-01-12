@@ -6,11 +6,11 @@ namespace SNFramework
 {
   public class SNKit :SN,ISNKit
   {
-    public Dictionary<int, ISNQueue> SNGroup { get; set; }
+    public Dictionary<SNContextType, ISNContext> SNContexts { get; set; }
 
     private SNKit () : base ()
     {
-      SNGroup = new Dictionary<int, ISNQueue> ();
+      SNContexts = new Dictionary<SNContextType, ISNContext> ();
     }
 
     private static SNKit instance;
@@ -19,152 +19,153 @@ namespace SNFramework
       get { return instance ?? (instance = new SNKit ()); }
     }
 
-    protected void GetAttribute (Delegate g)
+    protected void CreateSNEvent (Delegate g)
     {
       var atr = g.Method.GetCustomAttributes (false) [0] as SNMethodAttribute;
-      var que = GetGroup (atr.GroupID);
+      var que = GetContext (atr.context);
 
-      for (int i = 0; i < que.Queue.Count; i++) {
-        if (que.Queue [i].SEventName == atr.SNEventName) {
-          que.Queue [i].RegisterSNEvent (atr.MsgName, g);
+      for (int i = 0; i < que.Context.Count; i++) {
+        if (que.Context [i].IdentifiedSign == atr.SNEventName) {
+          que.Context [i].Register (atr.MsgName, g);
           return;
         }
       }
 
       ISNEvent e = new SNEvent ();
-      e.SEventName = atr.SNEventName;
-      e.RegisterSNEvent (atr.MsgName, g);
+      e.IdentifiedSign = atr.SNEventName;
+      e.Register (atr.MsgName, g);
       que.UpdateSNEvent (e);
     }
 
-    public SNKit Add (Action m)
+    public SNKit Register (Action m)
     {
-      GetAttribute (m);
+      CreateSNEvent (m);
       return this;
     }
 
-    public SNKit Add<T> (Action<T> m)
+    public SNKit Register<T> (Action<T> m)
     {
-      GetAttribute (m);
+      CreateSNEvent (m);
       return this;
     }
 
-    public SNKit Add<T, U> (Action<T, U> m)
+    public SNKit Register<T, U> (Action<T, U> m)
     {
-      GetAttribute (m);
+      CreateSNEvent (m);
       return this;
     }
 
-    public SNKit Add<T, U, V> (Action<T, U, V> m)
+    public SNKit Register<T, U, V> (Action<T, U, V> m)
     {
-      GetAttribute (m);
+      CreateSNEvent (m);
       return this;
     }
 
-    public SNKit Add<T, U, V, W> (Action<T, U, V, W> m)
+    public SNKit Register<T, U, V, W> (Action<T, U, V, W> m)
     {
-      GetAttribute (m);
+      CreateSNEvent (m);
       return this;
     }
 
-    public SNKit Add<T, U, V, W, X> (Action<T, U, V, W, X> m)
+    public SNKit Register<T, U, V, W, X> (Action<T, U, V, W, X> m)
     {
-      GetAttribute (m);
+      CreateSNEvent (m);
       return this;
     }
 
-    public SNKit Add<TResult> (Func<TResult> m)
+    public SNKit Register<TResult> (Func<TResult> m)
     {
-      GetAttribute (m);
+      CreateSNEvent (m);
       return this;
     }
 
-    public SNKit Add<T, TResult> (Func<T, TResult> m)
+    public SNKit Register<T, TResult> (Func<T, TResult> m)
     {
-      GetAttribute (m);
+      CreateSNEvent (m);
       return this;
     }
 
-    public SNKit Add<T, U, TResult> (Func<T, U, TResult> m)
+    public SNKit Register<T, U, TResult> (Func<T, U, TResult> m)
     {
-      GetAttribute (m);
+      CreateSNEvent (m);
       return this;
     }
 
-    public SNKit Add<T, U, V, TResult> (Func<T, U, V, TResult> m)
+    public SNKit Register<T, U, V, TResult> (Func<T, U, V, TResult> m)
     {
-      GetAttribute (m);
+      CreateSNEvent (m);
       return this;
     }
 
-    public SNKit Add<T, U, V, W, TResult> (Func<T, U, V, W, TResult> m)
+    public SNKit Register<T, U, V, W, TResult> (Func<T, U, V, W, TResult> m)
     {
-      GetAttribute (m);
+      CreateSNEvent (m);
       return this;
     }
 
-    public SNKit Add<T, U, V, W, X, TResult> (Func<T, U, V, W, X, TResult> m)
+    public SNKit Register<T, U, V, W, X, TResult> (Func<T, U, V, W, X, TResult> m)
     {
-      GetAttribute (m);
+      CreateSNEvent (m);
       return this;
     }
 
 
-    public SNKit ForceReset (int id = 0)
+    public SNKit ResetContext (SNContextType context = SNContextType.DEFAULT)
     {
-      if (SNGroup.ContainsKey (id)) {
-        if (SNGroup [id] == null) {
-          ErrorLog (string.Format ("SNPool[{0}] IS NULL", id));
+      if (SNContexts.ContainsKey (context)) {
+        if (SNContexts [context] == null) {
+          Log (string.Format ("SNContexts[{0}] IS NULL", context));
           return this;
         } else {
-          SNGroup [id].Reset ();
+          SNContexts [context].Reset ();
           return this;
         }
       } else {
-        WarningLog (string.Format ("SNPool[{0}] CAN'T FOUND", id));
+        Log (string.Format ("SNContexts[{0}] CAN'T FOUND", context));
         return this;
       }
     }
 
-    public ISNQueue GetGroup (int groupID = 0)
+    public SNKit ResetContext ()
     {
-      if (SNGroup.ContainsKey (groupID)) {
-        if (SNGroup [groupID] == null) {
-          SNGroup [groupID] = new SNQueue ();
-          return SNGroup [groupID];
+      base.Reset ();
+      foreach (var item in SNContexts.Values) {
+        item.Reset ();
+      }
+      return this;
+    }
+
+    public ISNContext GetContext (SNContextType context = SNContextType.DEFAULT)
+    {
+      if (SNContexts.ContainsKey (context)) {
+        if (SNContexts [context] == null) {
+          SNContexts [context] = new SNContext ();
+          return SNContexts [context];
         } else {
-          return SNGroup [groupID];
+          return SNContexts [context];
         }
       } else {
-        SNGroup.Add (groupID, new SNQueue ());
-        return SNGroup [groupID];
+        SNContexts.Add (context, new SNContext ());
+        return SNContexts [context];
       }
     }
 
 
     public override ISN Reset ()
     {
-      if (SNGroup != null) {
-        SNGroup.Clear ();
+      if (SNContexts != null) {
+        SNContexts.Clear ();
       } else {
-        SNGroup = new Dictionary<int, ISNQueue> ();
+        SNContexts = new Dictionary<SNContextType, ISNContext> ();
       }
       return this;
     }
 
-    public SNKit RemoveQueue (int groupID)
-    {
-      if (SNGroup.ContainsKey (groupID)) {
-        SNGroup.Remove (groupID);
-        return this;
-      } else {
-        WarningLog (string.Format ("SNPool[{0}] CAN'T FOUND", groupID));
-        return this;
-      }
+
+    public ISNContext this [SNContextType context] {
+      get { return GetContext (context); }
     }
 
-    public ISNQueue this [int groupID] {
-      get { return GetGroup (groupID); }
-    }
+
   }
 }

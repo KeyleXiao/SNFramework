@@ -3,29 +3,33 @@ using System;
 
 namespace SNFramework
 {
-  public abstract class SN : ISN
+  public class SN : ISN
   {
     public string IdentifiedSign { get; set; }
+
+    #if UNITY_EDITOR
+    /// <summary>
+    /// 用来检测当前代码段是否被重置
+    /// </summary>
+    /// <value>The reset times.</value>
+    public int ResetTimes { get; set; }
+    #endif
 
     public SN ()
     {
       IdentifiedSign = (Guid.NewGuid ()).ToString ();
     }
 
-    public virtual ISN ErrorLog (string msg)
+    public virtual ISN Log (string msg)
     {
-      throw new System.Exception ("ErrorLog:" + msg);
+      throw new System.Exception (string.Format ("SNFramework Log [{0}]", msg));
     }
 
-    public virtual ISN WarningLog (string msg)
+    public virtual ISN Reset ()
     {
-      throw new System.Exception ("WarningLog:" + msg);
-    }
-
-    public abstract ISN Reset ();
-
-    public virtual ISN GetSNObject (string identifiedID = "")
-    {
+      #if UNITY_EDITOR
+      ResetTimes += 1;
+      #endif
       return this;
     }
   }

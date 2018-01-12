@@ -6,36 +6,36 @@ namespace SNFramework
 {
   public interface ISNKit:ISN
   {
-    Dictionary<int, ISNQueue> SNGroup { get; set; }
+    Dictionary<SNContextType, ISNContext> SNContexts { get; set; }
 
-    ISNQueue GetGroup (int poolID = 0);
+    ISNContext GetContext (SNContextType context);
 
-    SNKit ForceReset (int id = 0);
+    SNKit ResetContext (SNContextType context = SNContextType.DEFAULT);
 
-    SNKit RemoveQueue (int poolID);
+    SNKit ResetContext ();
 
-    SNKit Add (Action m);
+    SNKit Register (Action m);
 
-    SNKit Add<T> (Action<T> m);
+    SNKit Register<T> (Action<T> m);
 
-    SNKit Add<T, U> (Action<T, U> m);
+    SNKit Register<T, U> (Action<T, U> m);
 
-    SNKit Add<T, U, V> (Action<T, U, V> m);
+    SNKit Register<T, U, V> (Action<T, U, V> m);
 
-    SNKit Add<T, U, V, W> (Action<T, U, V, W> m);
+    SNKit Register<T, U, V, W> (Action<T, U, V, W> m);
 
-    SNKit Add<T, U, V, W, X> (Action<T, U, V, W, X> m);
+    SNKit Register<T, U, V, W, X> (Action<T, U, V, W, X> m);
 
-    SNKit Add<TResult> (Func<TResult> m);
+    SNKit Register<TResult> (Func<TResult> m);
 
-    SNKit Add<T, TResult> (Func<T, TResult> m);
+    SNKit Register<T, TResult> (Func<T, TResult> m);
 
-    SNKit Add<T, U, TResult> (Func<T, U, TResult> m);
+    SNKit Register<T, U, TResult> (Func<T, U, TResult> m);
 
-    SNKit Add<T, U, V, TResult> (Func<T, U, V, TResult> m);
+    SNKit Register<T, U, V, TResult> (Func<T, U, V, TResult> m);
 
-    SNKit Add<T, U, V, W, TResult> (Func<T, U, V, W, TResult> m);
+    SNKit Register<T, U, V, W, TResult> (Func<T, U, V, W, TResult> m);
 
-    SNKit Add<T, U, V, W, X, TResult> (Func<T, U, V, W, X, TResult> m);
+    SNKit Register<T, U, V, W, X, TResult> (Func<T, U, V, W, X, TResult> m);
   }
 }
