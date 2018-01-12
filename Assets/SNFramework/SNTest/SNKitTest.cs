@@ -9,74 +9,74 @@ namespace SNTest
 {
   public class SNKitTest
   {
-    [SNMethod ("T01", SNMsgName.Msg0)]
+    [SNMethod (SNEventName.Msg0)]
     public void Test ()
     {
       TestInt = 1;
     }
 
-    [SNMethod ("T01", SNMsgName.Msg0)]
+    [SNMethod (SNEventName.Msg0)]
     public void Test1 (int a)
     {
       TestInt = a;
     }
 
-    [SNMethod ("T01", SNMsgName.Msg0)]
+    [SNMethod (SNEventName.Msg0)]
     public void Test2 (int a, int b)
     {
       TestInt = a + b;
     }
 
-    [SNMethod ("T01", SNMsgName.Msg0)]
+    [SNMethod (SNEventName.Msg0)]
     public void Test3 (int a, int b, int c)
     {
       TestInt = a + b + c;
     }
 
-    [SNMethod ("T01", SNMsgName.Msg0)]
+    [SNMethod (SNEventName.Msg0)]
     public void Test4 (int a, int b, int c, int d)
     {
       TestInt = a + b + c + d;
     }
 
-    [SNMethod ("T01", SNMsgName.Msg0)]
+    [SNMethod (SNEventName.Msg0)]
     public void Test5 (int a, int b, int c, int d, int e)
     {
       TestInt = a + b + c + d + e;
     }
 
 
-    [SNMethod ("T01", SNMsgName.Msg0)]
+    [SNMethod (SNEventName.Msg0)]
     public int TestHasReturn ()
     {
       return TestInt = 1;
     }
 
-    [SNMethod ("T01", SNMsgName.Msg0)]
+    [SNMethod (SNEventName.Msg0)]
     public int TestHasReturn1 (int a)
     {
       return TestInt = a;
     }
 
-    [SNMethod ("T01", SNMsgName.Msg0)]
+    [SNMethod (SNEventName.Msg0)]
     public int TestHasReturn2 (int a, int b)
     {
       return TestInt = a + b;
     }
 
-    [SNMethod ("T01", SNMsgName.Msg0)]
+    [SNMethod (SNEventName.Msg0)]
     public int TestHasReturn3 (int a, int b, int c)
     {
       return TestInt = a + b + c;
     }
 
-    [SNMethod ("T01", SNMsgName.Msg0)]
+    [SNMethod (SNEventName.Msg0)]
     public int TestHasReturn4 (int a, int b, int c, int d)
     {
       return TestInt = a + b + c + d;
     }
 
-    [SNMethod ("T01", SNMsgName.Msg0)]
+    [SNMethod (SNEventName.Msg0)]
     public int TestHasReturn5 (int a, int b, int c, int d, int e)
     {
       return TestInt = a + b + c + d + e;
@@ -90,9 +90,9 @@ namespace SNTest
     {
       SNKit.Instance.Reset ();
       SNKit.Instance.Register (Test);
-      Assert.AreEqual (SNKit.Instance [0].Context.Count, 1);
+      Assert.AreEqual (SNKit.Instance.SNContexts.Count, 1);
 
-      SNKit.Instance [0].GetSNEvent ("T01").Dispatch (SNMsgName.Msg0);
+      SNKit.Instance.Dispatch (SNEventName.Msg0);
       Assert.AreEqual (1, TestInt);
     }
 
@@ -101,9 +101,9 @@ namespace SNTest
     {
       SNKit.Instance.Reset ();
       SNKit.Instance.Register<int> (Test1);
-      Assert.AreEqual (SNKit.Instance [0].Context.Count, 1);
+      Assert.AreEqual (SNKit.Instance.SNContexts.Count, 1);
 
-      SNKit.Instance [0].GetSNEvent ("T01").Dispatch (SNMsgName.Msg0, 1);
+      SNKit.Instance.Dispatch (SNEventName.Msg0, 1);
       Assert.AreEqual (1, TestInt);
     }
 
@@ -112,9 +112,9 @@ namespace SNTest
     {
       SNKit.Instance.Reset ();
       SNKit.Instance.Register<int, int> (Test2);
-      Assert.AreEqual (SNKit.Instance [0].Context.Count, 1);
+      Assert.AreEqual (SNKit.Instance.SNContexts.Count, 1);
 
-      SNKit.Instance [0].GetSNEvent ("T01").Dispatch (SNMsgName.Msg0, 1, 1);
+      SNKit.Instance.Dispatch (SNEventName.Msg0, 1, 1);
       Assert.AreEqual (2, TestInt);
     }
 
@@ -123,9 +123,9 @@ namespace SNTest
     {
       SNKit.Instance.Reset ();
       SNKit.Instance.Register<int, int, int> (Test3);
-      Assert.AreEqual (SNKit.Instance [0].Context.Count, 1);
+      Assert.AreEqual (SNKit.Instance.SNContexts.Count, 1);
 
-      SNKit.Instance [0].GetSNEvent ("T01").Dispatch (SNMsgName.Msg0, 1, 1, 1);
+      SNKit.Instance.Dispatch (SNEventName.Msg0, 1, 1, 1);
       Assert.AreEqual (3, TestInt);
     }
 
@@ -134,9 +134,9 @@ namespace SNTest
     {
       SNKit.Instance.Reset ();
       SNKit.Instance.Register<int, int, int, int> (Test4);
-      Assert.AreEqual (SNKit.Instance [0].Context.Count, 1);
+      Assert.AreEqual (SNKit.Instance.SNContexts.Count, 1);
 
-      SNKit.Instance [0].GetSNEvent ("T01").Dispatch (SNMsgName.Msg0, 1, 1, 1, 1);
+      SNKit.Instance.Dispatch (SNEventName.Msg0, 1, 1, 1, 1);
       Assert.AreEqual (4, TestInt);
     }
 
@@ -147,9 +147,9 @@ namespace SNTest
     {
       SNKit.Instance.Reset ();
       SNKit.Instance.Register<int, int, int, int, int> (Test5);
-      Assert.AreEqual (SNKit.Instance [0].Context.Count, 1);
+      Assert.AreEqual (SNKit.Instance.SNContexts.Count, 1);
 
-      SNKit.Instance [0].GetSNEvent ("T01").Dispatch (SNMsgName.Msg0, 1, 1, 1, 1, 1);
+      SNKit.Instance.Dispatch (SNEventName.Msg0, 1, 1, 1, 1, 1);
       Assert.AreEqual (5, TestInt);
     }
 
@@ -160,9 +160,9 @@ namespace SNTest
     {
       SNKit.Instance.Reset ();
       SNKit.Instance.Register<int> (TestHasReturn);
-      Assert.AreEqual (SNKit.Instance [0].Context.Count, 1);
+      Assert.AreEqual (SNKit.Instance.SNContexts.Count, 1);
 
-      TestInt = SNKit.Instance [0].GetSNEvent ("T01").DispatchHasReturn<int> (SNMsgName.Msg0);
+      TestInt = SNKit.Instance.DispatchHasReturn<int> (SNEventName.Msg0);
       Assert.AreEqual (1, TestInt);
     }
 
@@ -171,9 +171,9 @@ namespace SNTest
     {
       SNKit.Instance.Reset ();
       SNKit.Instance.Register<int,int> (TestHasReturn1);
-      Assert.AreEqual (SNKit.Instance [0].Context.Count, 1);
+      Assert.AreEqual (SNKit.Instance.SNContexts.Count, 1);
 
-      TestInt = SNKit.Instance [0].GetSNEvent ("T01").DispatchHasReturn<int,int> (SNMsgName.Msg0, 1);
+      TestInt = SNKit.Instance.DispatchHasReturn<int,int> (SNEventName.Msg0, 1);
       Assert.AreEqual (1, TestInt);
     }
 
@@ -182,9 +182,9 @@ namespace SNTest
     {
       SNKit.Instance.Reset ();
       SNKit.Instance.Register<int, int,int> (TestHasReturn2);
-      Assert.AreEqual (SNKit.Instance [0].Context.Count, 1);
+      Assert.AreEqual (SNKit.Instance.SNContexts.Count, 1);
 
-      TestInt = SNKit.Instance [0].GetSNEvent ("T01").DispatchHasReturn<int, int,int> (SNMsgName.Msg0, 1, 1);
+      TestInt = SNKit.Instance.DispatchHasReturn<int, int,int> (SNEventName.Msg0, 1, 1);
       Assert.AreEqual (2, TestInt);
     }
 
@@ -193,9 +193,9 @@ namespace SNTest
     {
       SNKit.Instance.Reset ();
       SNKit.Instance.Register<int, int, int,int> (TestHasReturn3);
-      Assert.AreEqual (SNKit.Instance [0].Context.Count, 1);
+      Assert.AreEqual (SNKit.Instance.SNContexts.Count, 1);
 
-      TestInt = SNKit.Instance [0].GetSNEvent ("T01").DispatchHasReturn<int, int, int,int> (SNMsgName.Msg0, 1, 1, 1);
+      TestInt = SNKit.Instance.DispatchHasReturn<int, int, int,int> (SNEventName.Msg0, 1, 1, 1);
       Assert.AreEqual (3, TestInt);
     }
 
@@ -204,9 +204,9 @@ namespace SNTest
     {
       SNKit.Instance.Reset ();
       SNKit.Instance.Register<int, int, int,int,int> (TestHasReturn4);
-      Assert.AreEqual (SNKit.Instance [0].Context.Count, 1);
+      Assert.AreEqual (SNKit.Instance.SNContexts.Count, 1);
 
-      TestInt = SNKit.Instance [0].GetSNEvent ("T01").DispatchHasReturn<int, int, int,int,int> (SNMsgName.Msg0, 1, 1, 1, 1);
+      TestInt = SNKit.Instance.DispatchHasReturn<int, int, int,int,int> (SNEventName.Msg0, 1, 1, 1, 1);
       Assert.AreEqual (4, TestInt);
     }
 
@@ -217,9 +217,9 @@ namespace SNTest
     {
       SNKit.Instance.Reset ();
       SNKit.Instance.Register<int, int, int, int,int, int> (TestHasReturn5);
-      Assert.AreEqual (SNKit.Instance [0].Context.Count, 1);
+      Assert.AreEqual (SNKit.Instance.SNContexts.Count, 1);
 
-      TestInt = SNKit.Instance [0].GetSNEvent ("T01").DispatchHasReturn<int, int, int,int,int,int> (SNMsgName.Msg0, 1, 1, 1, 1, 1);
+      TestInt = SNKit.Instance.DispatchHasReturn<int, int, int,int,int,int> (SNEventName.Msg0, 1, 1, 1, 1, 1);
       Assert.AreEqual (5, TestInt);
     }
 

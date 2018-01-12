@@ -6,18 +6,13 @@ namespace SNFramework
   public delegate TResult Func<in T,in U,in V,in W,in X,out TResult> (T arg1,U arg2,V arg3,W arg4,X arg5);
 
 
-  public static partial class SNMsgName
-  {
-    public const string Msg0 = "TestMsg0";
-
-  }
 
   public static partial class SNEventName
   {
     /// <summary>
     /// Default Queue
     /// </summary>
-    public const string Queue0 = "0x0";
+    public const string Msg0 = "0x0";
   }
 
   public enum SNContextType

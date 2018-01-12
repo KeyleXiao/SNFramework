@@ -26,14 +26,14 @@ namespace SNFramework
 
       for (int i = 0; i < que.Context.Count; i++) {
         if (que.Context [i].IdentifiedSign == atr.SNEventName) {
-          que.Context [i].Register (atr.MsgName, g);
+          que.Context [i].Register (atr.SNEventName, g);
           return;
         }
       }
 
       ISNEvent e = new SNEvent ();
       e.IdentifiedSign = atr.SNEventName;
-      e.Register (atr.MsgName, g);
+      e.Register (atr.SNEventName, g);
       que.UpdateSNEvent (e);
     }
 
@@ -107,6 +107,116 @@ namespace SNFramework
     {
       CreateSNEvent (m);
       return this;
+    }
+
+
+
+    public SNKit Dispatch (string name, SNContextType context = SNContextType.DEFAULT)
+    {
+      var e = GetContext (context).GetSNEvent (name);
+      if (e != null) {
+        e.Dispatch (name);
+      }
+      return this;
+    }
+
+    public SNKit Dispatch<T> (string name, T arg1, SNContextType context = SNContextType.DEFAULT)
+    {
+      var e = GetContext (context).GetSNEvent (name);
+      if (e != null) {
+        e.Dispatch (name, arg1);
+      }
+      return this;
+    }
+
+    public SNKit Dispatch<T, U> (string name, T arg1, U arg2, SNContextType context = SNContextType.DEFAULT)
+    {
+      var e = GetContext (context).GetSNEvent (name);
+      if (e != null) {
+        e.Dispatch (name, arg1, arg2);
+      }
+      return this;
+    }
+
+    public SNKit Dispatch<T, U, V> (string name, T arg1, U arg2, V arg3, SNContextType context = SNContextType.DEFAULT)
+    {
+      var e = GetContext (context).GetSNEvent (name);
+      if (e != null) {
+        e.Dispatch (name, arg1, arg2, arg3);
+      }
+      return this;
+    }
+
+    public SNKit Dispatch<T, U, V, W> (string name, T arg1, U arg2, V arg3, W arg4, SNContextType context = SNContextType.DEFAULT)
+    {
+      var e = GetContext (context).GetSNEvent (name);
+      if (e != null) {
+        e.Dispatch (name, arg1, arg2, arg3, arg4);
+      }
+      return this;
+    }
+
+    public SNKit Dispatch<T, U, V, W, X> (string name, T arg1, U arg2, V arg3, W arg4, X arg5, SNContextType context = SNContextType.DEFAULT)
+    {
+      var e = GetContext (context).GetSNEvent (name);
+      if (e != null) {
+        e.Dispatch (name, arg1, arg2, arg3, arg4, arg5);
+      }
+      return this;
+    }
+
+    public TResult DispatchHasReturn<TResult> (string name, SNContextType context = SNContextType.DEFAULT)
+    {
+      var e = GetContext (context).GetSNEvent (name);
+      if (e != null) {
+        return   e.DispatchHasReturn <TResult> (name);
+      }
+      return default(TResult);
+    }
+
+    public TResult DispatchHasReturn<T, TResult> (string name, T arg1, SNContextType context = SNContextType.DEFAULT)
+    {
+      var e = GetContext (context).GetSNEvent (name);
+      if (e != null) {
+        return  e.DispatchHasReturn<T, TResult> (name, arg1);
+      }
+      return default(TResult);
+    }
+
+    public TResult DispatchHasReturn<T, U, TResult> (string name, T arg1, U arg2, SNContextType context = SNContextType.DEFAULT)
+    {
+      var e = GetContext (context).GetSNEvent (name);
+      if (e != null) {
+        return  e.DispatchHasReturn<T, U, TResult> (name, arg1, arg2);
+      }
+      return default(TResult);
+    }
+
+    public TResult DispatchHasReturn<T, U, V, TResult> (string name, T arg1, U arg2, V arg3, SNContextType context = SNContextType.DEFAULT)
+    {
+      var e = GetContext (context).GetSNEvent (name);
+      if (e != null) {
+        return  e.DispatchHasReturn <T, U, V, TResult> (name, arg1, arg2, arg3);
+      }
+      return default(TResult);
+    }
+
+    public TResult DispatchHasReturn<T, U, V, W, TResult> (string name, T arg1, U arg2, V arg3, W arg4, SNContextType context = SNContextType.DEFAULT)
+    {
+      var e = GetContext (context).GetSNEvent (name);
+      if (e != null) {
+        return  e.DispatchHasReturn<T, U, V, W, TResult> (name, arg1, arg2, arg3, arg4);
+      }
+      return default(TResult);
+    }
+
+    public TResult DispatchHasReturn<T, U, V, W, X, TResult> (string name, T arg1, U arg2, V arg3, W arg4, X arg5, SNContextType context = SNContextType.DEFAULT)
+    {
+      var e = GetContext (context).GetSNEvent (name);
+      if (e != null) {
+        return e.DispatchHasReturn <T, U, V, W, X, TResult> (name, arg1, arg2, arg3, arg4, arg5);
+      }
+      return default(TResult);
     }
 
 

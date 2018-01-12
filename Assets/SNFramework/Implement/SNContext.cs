@@ -72,7 +72,7 @@ namespace SNFramework
     {
       if (Context == null) {
         Context = new List<ISNEvent> ();
-        Log ("Queue IS NULL");
+        Log ("Context IS NULL");
         return null;
       }
       for (int i = 0; i < Context.Count; i++) {
@@ -80,7 +80,6 @@ namespace SNFramework
           return Context [i];
         }
       }
-
       return null;
     }
 
