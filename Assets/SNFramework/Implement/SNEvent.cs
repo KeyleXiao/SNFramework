@@ -13,8 +13,6 @@ namespace SNFramework
 
     protected Dictionary<Type, Dictionary<string, Delegate>> SNTable { get; set; }
 
-    public string SNEventName { get; set; }
-
     public ISNEvent Unregister (string name, Delegate handler)
     {
       if (SNTable == null) {
