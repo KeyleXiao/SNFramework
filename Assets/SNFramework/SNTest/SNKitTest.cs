@@ -17,68 +17,68 @@ namespace SNTest
       TestInt = 1;
     }
 
-    [SNMethod (SNMsg.ExampleMsg, true)]
+    [SNMethod (SNMsg.ExampleMsg, AutoRelease: true)]
     public void Test1 (int a)
     {
       TestInt = a;
     }
 
-    [SNMethod (SNMsg.ExampleMsg, true)]
+    [SNMethod (SNMsg.ExampleMsg, AutoRelease: true)]
     public void Test2 (int a, int b)
     {
       TestInt += (a + b);
     }
 
-    [SNMethod (SNMsg.ExampleMsg, true)]
+    [SNMethod (SNMsg.ExampleMsg, AutoRelease: true)]
     public void Test3 (int a, int b, int c)
     {
       TestInt += (a + b + c);
     }
 
-    [SNMethod (SNMsg.ExampleMsg, true)]
+    [SNMethod (SNMsg.ExampleMsg, AutoRelease: true)]
     public void Test4 (int a, int b, int c, int d)
     {
       TestInt += a + b + c + d;
     }
 
-    [SNMethod (SNMsg.ExampleMsg, true)]
+    [SNMethod (SNMsg.ExampleMsg, AutoRelease: true)]
     public void Test5 (int a, int b, int c, int d, int e)
     {
       TestInt += a + b + c + d + e;
     }
 
 
-    [SNMethod (SNMsg.ExampleMsg, true)]
+    [SNMethod (SNMsg.ExampleMsg, AutoRelease: true)]
     public int TestHasReturn ()
     {
       return TestInt = 1;
     }
 
-    [SNMethod (SNMsg.ExampleMsg, true)]
+    [SNMethod (SNMsg.ExampleMsg, AutoRelease: true)]
     public int TestHasReturn1 (int a)
     {
       return TestInt = a;
     }
 
-    [SNMethod (SNMsg.ExampleMsg, true)]
+    [SNMethod (SNMsg.ExampleMsg, AutoRelease: true)]
     public int TestHasReturn2 (int a, int b)
     {
       return TestInt += (a + b);
     }
 
-    [SNMethod (SNMsg.ExampleMsg, true)]
+    [SNMethod (SNMsg.ExampleMsg, AutoRelease: true)]
     public int TestHasReturn3 (int a, int b, int c)
     {
       return TestInt += (a + b + c);
     }
 
-    [SNMethod (SNMsg.ExampleMsg, true)]
+    [SNMethod (SNMsg.ExampleMsg, AutoRelease: true)]
     public int TestHasReturn4 (int a, int b, int c, int d)
     {
       return TestInt += (a + b + c + d);
     }
 
-    [SNMethod (SNMsg.ExampleMsg, true)]
+    [SNMethod (SNMsg.ExampleMsg, AutoRelease: true)]
     public int TestHasReturn5 (int a, int b, int c, int d, int e)
     {
       return TestInt += (a + b + c + d + e);
@@ -95,7 +95,7 @@ namespace SNTest
     }
 
     [Test]
-    public void CrossContextAddTest ()
+    public void AddTest ()
     {
       ResetEveryTest ();
       SNKit.Instance.Register (Test);
@@ -114,7 +114,7 @@ namespace SNTest
     }
 
     [Test]
-    public void CrossContextAddTest1Once ()
+    public void AddTest1Once ()
     {
       ResetEveryTest ();
 
@@ -133,7 +133,7 @@ namespace SNTest
     }
 
     [Test]
-    public void CrossContextAddTest2 ()
+    public void AddTest2 ()
     {
       ResetEveryTest ();
       SNKit.Instance.Register<int, int> (Test2);
@@ -149,7 +149,7 @@ namespace SNTest
     }
 
     [Test]
-    public void CrossContextAddTest2Once ()
+    public void AddTest2Once ()
     {
       ResetEveryTest ();
       SNKit.Instance.Register<int, int> (Test2);
@@ -165,7 +165,7 @@ namespace SNTest
     }
 
     [Test]
-    public void CrossContextAddTest3 ()
+    public void AddTest3 ()
     {
       ResetEveryTest ();
       SNKit.Instance.Register<int, int, int> (Test3);
@@ -184,7 +184,7 @@ namespace SNTest
 
 
     [Test]
-    public void CrossContextAddTest3Once ()
+    public void AddTest3Once ()
     {
       ResetEveryTest ();
       SNKit.Instance.Register<int, int, int> (Test3);
@@ -203,7 +203,7 @@ namespace SNTest
 
 
     [Test]
-    public void CrossContextAddTest4 ()
+    public void AddTest4 ()
     {
       ResetEveryTest ();
       SNKit.Instance.Register<int, int, int, int> (Test4);
@@ -222,7 +222,7 @@ namespace SNTest
 
 
     [Test]
-    public void CrossContextAddTest4Once ()
+    public void AddTest4Once ()
     {
       ResetEveryTest ();
       SNKit.Instance.Register<int, int, int, int> (Test4);
@@ -243,7 +243,7 @@ namespace SNTest
 
 
     [Test]
-    public void CrossContextAddTest5 ()
+    public void AddTest5 ()
     {
       ResetEveryTest ();
       SNKit.Instance.Register<int, int, int, int, int> (Test5);
@@ -260,7 +260,7 @@ namespace SNTest
     }
 
     [Test]
-    public void CrossContextAddTest5Once ()
+    public void AddTest5Once ()
     {
       ResetEveryTest ();
       SNKit.Instance.Register<int, int, int, int, int> (Test5);
@@ -277,7 +277,7 @@ namespace SNTest
     }
 
     [Test]
-    public void CrossContextAddTestOnce ()
+    public void AddTestOnce ()
     {
       ResetEveryTest ();
       SNKit.Instance.Register<int, int, int, int, int> (Test5);
@@ -296,7 +296,7 @@ namespace SNTest
     // --------------------------------------
 
     [Test]
-    public void CrossContextAddTestHasReturn ()
+    public void AddTestHasReturn ()
     {
       ResetEveryTest ();
       SNKit.Instance.Register<int> (TestHasReturn);
@@ -315,7 +315,7 @@ namespace SNTest
     }
 
     [Test]
-    public void CrossContextAddTestHasReturnOnce ()
+    public void AddTestHasReturnOnce ()
     {
       ResetEveryTest ();
       SNKit.Instance.Register<int> (TestHasReturn);
@@ -333,7 +333,7 @@ namespace SNTest
     }
 
     [Test]
-    public void CrossContextAddHasReturnTest1 ()
+    public void AddHasReturnTest1 ()
     {
       ResetEveryTest ();
       SNKit.Instance.Register<int, int> (TestHasReturn1);
@@ -352,7 +352,7 @@ namespace SNTest
 
 
     [Test]
-    public void CrossContextAddHasReturnTest1Once ()
+    public void AddHasReturnTest1Once ()
     {
       ResetEveryTest ();
       SNKit.Instance.Register<int, int> (TestHasReturn1);
@@ -371,7 +371,7 @@ namespace SNTest
 
 
     [Test]
-    public void CrossContextAddHasReturnTest2 ()
+    public void AddHasReturnTest2 ()
     {
       ResetEveryTest ();
       SNKit.Instance.Register<int, int, int> (TestHasReturn2);
@@ -388,7 +388,7 @@ namespace SNTest
     }
 
     [Test]
-    public void CrossContextAddHasReturnTest2Once ()
+    public void AddHasReturnTest2Once ()
     {
       ResetEveryTest ();
       SNKit.Instance.Register<int, int, int> (TestHasReturn2);
@@ -405,7 +405,7 @@ namespace SNTest
     }
 
     [Test]
-    public void CrossContextAddHasReturnTest3 ()
+    public void AddHasReturnTest3 ()
     {
       ResetEveryTest ();
       SNKit.Instance.Register<int, int, int, int> (TestHasReturn3);
@@ -424,7 +424,7 @@ namespace SNTest
 
 
     [Test]
-    public void CrossContextAddHasReturnTest3Once ()
+    public void AddHasReturnTest3Once ()
     {
       ResetEveryTest ();
       SNKit.Instance.Register<int, int, int, int> (TestHasReturn3);
@@ -442,7 +442,7 @@ namespace SNTest
 
 
     [Test]
-    public void CrossContextAddHasReturnTest4 ()
+    public void AddHasReturnTest4 ()
     {
       ResetEveryTest ();
       SNKit.Instance.Register<int, int, int, int, int> (TestHasReturn4);
@@ -462,7 +462,7 @@ namespace SNTest
     }
 
     [Test]
-    public void CrossContextAddHasReturnTest4Once ()
+    public void AddHasReturnTest4Once ()
     {
       ResetEveryTest ();
       SNKit.Instance.Register<int, int, int, int, int> (TestHasReturn4);
@@ -481,7 +481,7 @@ namespace SNTest
     }
 
     [Test]
-    public void CrossContextAddHasReturnTest5 ()
+    public void AddHasReturnTest5 ()
     {
       ResetEveryTest ();
       SNKit.Instance.Register<int, int, int, int, int, int> (TestHasReturn5);
@@ -501,7 +501,7 @@ namespace SNTest
     }
 
     [Test]
-    public void CrossContextAddHasReturnTest5Once ()
+    public void AddHasReturnTest5Once ()
     {
       ResetEveryTest ();
       SNKit.Instance.Register<int, int, int, int, int, int> (TestHasReturn5);
