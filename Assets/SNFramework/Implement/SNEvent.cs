@@ -4,12 +4,14 @@ using System.Collections.Generic;
 
 namespace SNFramework
 {
-  public class SNEvent : SN,ISNEvent
+  public class SNEvent : SN, ISNEvent
   {
     public SNEvent ()
     {
       SNTable = new Dictionary<Type, Dictionary<string, Delegate>> ();
     }
+
+    public bool AutoRelease { get; set; }
 
     protected Dictionary<Type, Dictionary<string, Delegate>> SNTable { get; set; }
 
@@ -19,7 +21,7 @@ namespace SNFramework
         Reset ();
         return this;
       }
-     
+
 
       Dictionary<string, Delegate> dictionary;
       Delegate source;
@@ -119,6 +121,8 @@ namespace SNFramework
       System.Action action = GetDelegate (name, typeof(System.Action)) as System.Action;
       if (action != null) {
         action ();
+        if (AutoRelease)
+          Reset ();
       }
       return this;
     }
@@ -128,6 +132,8 @@ namespace SNFramework
       Action<T> action = GetDelegate (name, typeof(Action<T>)) as Action<T>;
       if (action != null) {
         action (arg1);
+        if (AutoRelease)
+          Reset ();
       }
       return this;
     }
@@ -137,6 +143,8 @@ namespace SNFramework
       Action<T, U> action = GetDelegate (name, typeof(Action<T, U>)) as Action<T, U>;
       if (action != null) {
         action (arg1, arg2);
+        if (AutoRelease)
+          Reset ();
       }
       return this;
     }
@@ -146,6 +154,8 @@ namespace SNFramework
       Action<T, U, V> action = GetDelegate (name, typeof(Action<T, U, V>)) as Action<T, U, V>;
       if (action != null) {
         action (arg1, arg2, arg3);
+        if (AutoRelease)
+          Reset ();
       }
       return this;
     }
@@ -155,6 +165,8 @@ namespace SNFramework
       Action<T, U, V, W> action = GetDelegate (name, typeof(Action<T, U, V, W>)) as Action<T, U, V, W>;
       if (action != null) {
         action (arg1, arg2, arg3, arg4);
+        if (AutoRelease)
+          Reset ();
       }
       return this;
     }
@@ -164,6 +176,8 @@ namespace SNFramework
       Action<T, U, V, W, X> action = GetDelegate (name, typeof(Action<T, U, V, W, X>)) as Action<T, U, V, W, X>;
       if (action != null) {
         action (arg1, arg2, arg3, arg4, arg5);
+        if (AutoRelease)
+          Reset ();
       }
       return this;
     }
@@ -172,6 +186,8 @@ namespace SNFramework
     {
       System.Func<TResult> func = GetDelegate (name, typeof(System.Func<TResult>)) as System.Func<TResult>;
       if (func != null) {
+        if (AutoRelease)
+          Reset ();
         return func ();
       }
       return default(TResult);
@@ -181,6 +197,8 @@ namespace SNFramework
     {
       System.Func<T, TResult> func = GetDelegate (name, typeof(System.Func<T, TResult>)) as System.Func<T, TResult>;
       if (func != null) {
+        if (AutoRelease)
+          Reset ();
         return func (arg1);
       }
       return default(TResult);
@@ -190,6 +208,8 @@ namespace SNFramework
     {
       System.Func<T, U, TResult> func = GetDelegate (name, typeof(System.Func<T, U, TResult>)) as System.Func<T, U, TResult>;
       if (func != null) {
+        if (AutoRelease)
+          Reset ();
         return func (arg1, arg2);
       }
       return default(TResult);
@@ -199,6 +219,8 @@ namespace SNFramework
     {
       System.Func<T, U, V, TResult> func = GetDelegate (name, typeof(System.Func<T, U, V, TResult>)) as System.Func<T, U, V, TResult>;
       if (func != null) {
+        if (AutoRelease)
+          Reset ();
         return func (arg1, arg2, arg3);
       }
       return default(TResult);
@@ -208,6 +230,8 @@ namespace SNFramework
     {
       System.Func<T, U, V, W, TResult> func = GetDelegate (name, typeof(System.Func<T, U, V, W, TResult>)) as System.Func<T, U, V, W, TResult>;
       if (func != null) {
+        if (AutoRelease)
+          Reset ();
         return func (arg1, arg2, arg3, arg4);
       }
       return default(TResult);
@@ -218,6 +242,8 @@ namespace SNFramework
       Func<T, U, V, W, X, TResult> func = GetDelegate (name, typeof(Func<T, U, V, W, X, TResult>)) as Func<T, U, V, W, X, TResult>;
 
       if (func != null) {
+        if (AutoRelease)
+          Reset ();
         return func (arg1, arg2, arg3, arg4, arg5);
       }
       return default(TResult);
