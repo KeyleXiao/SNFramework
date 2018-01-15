@@ -198,6 +198,14 @@ namespace SNTest
       Assert.AreEqual (param4, 1);
     }
 
+
+    public void ResetEveryTest ()
+    {
+      item = 0;
+    }
+
+    int item = 0;
+
     [Test]
     public void SendSNEventHasReturn ()
     {
@@ -207,52 +215,57 @@ namespace SNTest
         return 1;
       };
       testInsintace.Register (SNMsg.ExampleMsg, voidFc);
-      var item = testInsintace.DispatchHasReturn<int> (SNMsg.ExampleMsg);
+
+      testInsintace.DispatchHasReturn<int> (SNMsg.ExampleMsg, ref item);
       Assert.AreEqual (item, 1);
     }
 
     [Test]
     public void SendSNEventHasReturn1 ()
     {
+      ResetEveryTest ();
       var testInsintace = new SNEvent ();
 
       Func<int, int> voidFc1 = (int i) => {
         return i;
       };
       testInsintace.Register (SNMsg.ExampleMsg, voidFc1);
-      var item = testInsintace.DispatchHasReturn<int, int> (SNMsg.ExampleMsg, 1);
+      testInsintace.DispatchHasReturn<int, int> (SNMsg.ExampleMsg, 1, ref item);
       Assert.AreEqual (item, 1);
     }
 
     [Test]
     public void SendSNEventHasReturn2 ()
     {
+      ResetEveryTest ();
       var testInsintace = new SNEvent ();
 
       Func<int, int, int> voidFc = (int i, int i2) => {
         return i + i2;
       };
       testInsintace.Register (SNMsg.ExampleMsg, voidFc);
-      var item = testInsintace.DispatchHasReturn<int, int, int> (SNMsg.ExampleMsg, 1, 1);
+      testInsintace.DispatchHasReturn<int, int, int> (SNMsg.ExampleMsg, 1, 1, ref item);
       Assert.AreEqual (item, 2);
     }
 
     [Test]
     public void SendSNEventHasReturn3 ()
     {
+      ResetEveryTest ();
       var testInsintace = new SNEvent ();
 
       Func<int, int, int, int> voidFc = (int i, int i2, int i3) => {
         return i + i2 + i3;
       };
       testInsintace.Register (SNMsg.ExampleMsg, voidFc);
-      var item = testInsintace.DispatchHasReturn<int, int, int, int> (SNMsg.ExampleMsg, 1, 1, 1);
+      testInsintace.DispatchHasReturn<int, int, int, int> (SNMsg.ExampleMsg, 1, 1, 1, ref item);
       Assert.AreEqual (item, 3);
     }
 
     [Test]
     public void SendSNEventHasReturn4 ()
     {
+      ResetEveryTest ();
       var testInsintace = new SNEvent ();
       int value = 0;
       Func<int, int, int, int, int> voidFc = (int i, int i2, int i3, int i4) => {
@@ -261,13 +274,14 @@ namespace SNTest
       testInsintace.Register (SNMsg.ExampleMsg, voidFc);
       testInsintace.Register (SNMsg.ExampleMsg, voidFc);
 
-      testInsintace.DispatchHasReturn<int, int, int, int, int> (SNMsg.ExampleMsg, 1, 1, 1, 1);
+      testInsintace.DispatchHasReturn<int, int, int, int, int> (SNMsg.ExampleMsg, 1, 1, 1, 1, ref item);
       Assert.AreEqual (value, 8);
     }
 
     [Test]
     public void SendSNEventHasReturn5 ()
     {
+      ResetEveryTest ();
       var testInsintace = new SNEvent ();
       int value = 0;
 
@@ -282,8 +296,8 @@ namespace SNTest
 
       testInsintace.Register (SNMsg.ExampleMsg, voidFc4);
       testInsintace.Register (SNMsg.ExampleMsg, voidFc);
-      var item = testInsintace.DispatchHasReturn<int, int, int, int, int, int> (SNMsg.ExampleMsg, 1, 1, 1, 1, 1);
-      testInsintace.DispatchHasReturn<int, int, int, int,int> (SNMsg.ExampleMsg, 1, 1, 1, 1);
+      testInsintace.DispatchHasReturn<int, int, int, int, int, int> (SNMsg.ExampleMsg, 1, 1, 1, 1, 1, ref item);
+      testInsintace.DispatchHasReturn<int, int, int, int,int> (SNMsg.ExampleMsg, 1, 1, 1, 1, ref item);
       Assert.AreEqual (value, 9);
     }
 

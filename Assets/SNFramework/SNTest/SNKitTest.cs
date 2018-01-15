@@ -83,7 +83,7 @@ namespace SNTest
     }
 
 
-    public int TestInt { get; set; }
+    public int TestInt = 0;
 
 
     public void ResetEveryTest ()
@@ -303,12 +303,12 @@ namespace SNTest
       SNKit.Instance [SNContextLevel.DEFAULT].GetSNEvent (SNMsg.ExampleMsg).AutoRelease = false;
       Assert.IsTrue (!SNKit.Instance [SNContextLevel.DEFAULT].GetSNEvent (SNMsg.ExampleMsg).AutoRelease);
 
-      TestInt = SNKit.Instance.DispatchHasReturn<int> (SNMsg.ExampleMsg);
+      Assert.IsTrue (SNKit.Instance.DispatchHasReturn<int> (SNMsg.ExampleMsg, ref TestInt));
       Assert.AreEqual (1, TestInt);
 
       TestInt = 2;
 
-      TestInt = SNKit.Instance.DispatchHasReturn<int> (SNMsg.ExampleMsg);
+      Assert.IsTrue (SNKit.Instance.DispatchHasReturn<int> (SNMsg.ExampleMsg, ref TestInt));
       Assert.AreEqual (1, TestInt);
     }
 
@@ -321,12 +321,13 @@ namespace SNTest
 
       Assert.IsTrue (SNKit.Instance [SNContextLevel.DEFAULT].GetSNEvent (SNMsg.ExampleMsg).AutoRelease);
 
-      TestInt = SNKit.Instance.DispatchHasReturn<int> (SNMsg.ExampleMsg);
+      Assert.IsTrue (SNKit.Instance.DispatchHasReturn<int> (SNMsg.ExampleMsg, ref TestInt));
       Assert.AreEqual (1, TestInt);
 
-      TestInt = SNKit.Instance.DispatchHasReturn<int> (SNMsg.ExampleMsg);
+      TestInt = 100;
+      Assert.IsFalse (SNKit.Instance.DispatchHasReturn<int> (SNMsg.ExampleMsg, ref TestInt));
 
-      Assert.AreEqual (default(int), TestInt);
+      Assert.AreEqual (100, TestInt);
     }
 
     [Test]
@@ -339,10 +340,11 @@ namespace SNTest
       SNKit.Instance [SNContextLevel.DEFAULT].GetSNEvent (SNMsg.ExampleMsg).AutoRelease = false;
       Assert.IsTrue (!SNKit.Instance [SNContextLevel.DEFAULT].GetSNEvent (SNMsg.ExampleMsg).AutoRelease);
 
-      TestInt = SNKit.Instance.DispatchHasReturn<int, int> (SNMsg.ExampleMsg, 1);
+      Assert.IsTrue (SNKit.Instance.DispatchHasReturn<int, int> (SNMsg.ExampleMsg, 1, ref TestInt));
       Assert.AreEqual (1, TestInt);
       TestInt = 0;
-      TestInt = SNKit.Instance.DispatchHasReturn<int, int> (SNMsg.ExampleMsg, 1);
+
+      Assert.IsTrue (SNKit.Instance.DispatchHasReturn<int, int> (SNMsg.ExampleMsg, 1, ref TestInt));
       Assert.AreEqual (1, TestInt);
     }
 
@@ -356,11 +358,12 @@ namespace SNTest
 
       Assert.IsTrue (SNKit.Instance [SNContextLevel.DEFAULT].GetSNEvent (SNMsg.ExampleMsg).AutoRelease);
 
-      TestInt = SNKit.Instance.DispatchHasReturn<int, int> (SNMsg.ExampleMsg, 1);
+      Assert.IsTrue (SNKit.Instance.DispatchHasReturn<int, int> (SNMsg.ExampleMsg, 1, ref TestInt));
       Assert.AreEqual (1, TestInt);
 
-      TestInt = SNKit.Instance.DispatchHasReturn<int, int> (SNMsg.ExampleMsg, 1);
-      Assert.AreEqual (default(int), TestInt);
+      TestInt = 2;
+      Assert.IsFalse (SNKit.Instance.DispatchHasReturn<int, int> (SNMsg.ExampleMsg, 1, ref TestInt));
+      Assert.AreEqual (2, TestInt);
     }
 
 
@@ -375,10 +378,10 @@ namespace SNTest
       SNKit.Instance [SNContextLevel.DEFAULT].GetSNEvent (SNMsg.ExampleMsg).AutoRelease = false;
       Assert.IsTrue (!SNKit.Instance [SNContextLevel.DEFAULT].GetSNEvent (SNMsg.ExampleMsg).AutoRelease);
 
-      TestInt = SNKit.Instance.DispatchHasReturn<int, int, int> (SNMsg.ExampleMsg, 1, 1);
+      Assert.IsTrue (SNKit.Instance.DispatchHasReturn<int, int, int> (SNMsg.ExampleMsg, 1, 1, ref TestInt));
       Assert.AreEqual (2, TestInt);
       TestInt = 10;
-      TestInt = SNKit.Instance.DispatchHasReturn<int, int, int> (SNMsg.ExampleMsg, 1, 1);
+      Assert.IsTrue (SNKit.Instance.DispatchHasReturn<int, int, int> (SNMsg.ExampleMsg, 1, 1, ref TestInt));
       Assert.AreEqual (12, TestInt);
     }
 
@@ -391,11 +394,12 @@ namespace SNTest
 
       Assert.IsTrue (SNKit.Instance [SNContextLevel.DEFAULT].GetSNEvent (SNMsg.ExampleMsg).AutoRelease);
 
-      TestInt = SNKit.Instance.DispatchHasReturn<int, int, int> (SNMsg.ExampleMsg, 1, 1);
+      Assert.IsTrue (SNKit.Instance.DispatchHasReturn<int, int, int> (SNMsg.ExampleMsg, 1, 1, ref TestInt));
       Assert.AreEqual (2, TestInt);
 
-      TestInt = SNKit.Instance.DispatchHasReturn<int, int, int> (SNMsg.ExampleMsg, 1, 1);
-      Assert.AreEqual (default(int), TestInt);
+      TestInt = 3;
+      Assert.False (SNKit.Instance.DispatchHasReturn<int, int, int> (SNMsg.ExampleMsg, 1, 1, ref TestInt));
+      Assert.AreEqual (3, TestInt);
     }
 
     [Test]
@@ -407,12 +411,12 @@ namespace SNTest
 
       SNKit.Instance [SNContextLevel.DEFAULT].GetSNEvent (SNMsg.ExampleMsg).AutoRelease = false;
       Assert.IsTrue (!SNKit.Instance [SNContextLevel.DEFAULT].GetSNEvent (SNMsg.ExampleMsg).AutoRelease);
-      TestInt = SNKit.Instance.DispatchHasReturn<int, int, int, int> (SNMsg.ExampleMsg, 1, 1, 1);
+      Assert.IsTrue (SNKit.Instance.DispatchHasReturn<int, int, int, int> (SNMsg.ExampleMsg, 1, 1, 1, ref TestInt));
       Assert.AreEqual (3, TestInt);
 
       TestInt = 100;
 
-      TestInt = SNKit.Instance.DispatchHasReturn<int, int, int, int> (SNMsg.ExampleMsg, 1, 1, 1);
+      Assert.IsTrue (SNKit.Instance.DispatchHasReturn<int, int, int, int> (SNMsg.ExampleMsg, 1, 1, 1, ref TestInt));
       Assert.AreEqual (103, TestInt);
     }
 
@@ -425,11 +429,13 @@ namespace SNTest
       Assert.AreEqual (SNKit.Instance.SNContexts.Count, 1);
 
       Assert.IsTrue (SNKit.Instance [SNContextLevel.DEFAULT].GetSNEvent (SNMsg.ExampleMsg).AutoRelease);
-      TestInt = SNKit.Instance.DispatchHasReturn<int, int, int, int> (SNMsg.ExampleMsg, 1, 1, 1);
+      Assert.IsTrue (SNKit.Instance.DispatchHasReturn<int, int, int, int> (SNMsg.ExampleMsg, 1, 1, 1, ref TestInt));
       Assert.AreEqual (3, TestInt);
 
-      TestInt = SNKit.Instance.DispatchHasReturn<int, int, int, int> (SNMsg.ExampleMsg, 1, 1, 1);
-      Assert.AreEqual (default(int), TestInt);
+      TestInt = 100;
+
+      Assert.IsFalse (SNKit.Instance.DispatchHasReturn<int, int, int, int> (SNMsg.ExampleMsg, 1, 1, 1, ref TestInt));
+      Assert.AreEqual (100, TestInt);
     }
 
 
@@ -444,12 +450,12 @@ namespace SNTest
       Assert.IsTrue (!SNKit.Instance [SNContextLevel.DEFAULT].GetSNEvent (SNMsg.ExampleMsg).AutoRelease);
 
 
-      TestInt = SNKit.Instance.DispatchHasReturn<int, int, int, int, int> (SNMsg.ExampleMsg, 1, 1, 1, 1);
+      Assert.IsTrue (SNKit.Instance.DispatchHasReturn<int, int, int, int, int> (SNMsg.ExampleMsg, 1, 1, 1, 1, ref TestInt));
       Assert.AreEqual (4, TestInt);
 
       TestInt = 100; 
 
-      TestInt = SNKit.Instance.DispatchHasReturn<int, int, int, int, int> (SNMsg.ExampleMsg, 1, 1, 1, 1);
+      Assert.IsTrue (SNKit.Instance.DispatchHasReturn<int, int, int, int, int> (SNMsg.ExampleMsg, 1, 1, 1, 1, ref TestInt));
       Assert.AreEqual (104, TestInt);
     }
 
@@ -463,11 +469,13 @@ namespace SNTest
       Assert.IsTrue (SNKit.Instance [SNContextLevel.DEFAULT].GetSNEvent (SNMsg.ExampleMsg).AutoRelease);
 
 
-      TestInt = SNKit.Instance.DispatchHasReturn<int, int, int, int, int> (SNMsg.ExampleMsg, 1, 1, 1, 1);
+      Assert.IsTrue (SNKit.Instance.DispatchHasReturn<int, int, int, int, int> (SNMsg.ExampleMsg, 1, 1, 1, 1, ref TestInt));
       Assert.AreEqual (4, TestInt);
 
-      TestInt = SNKit.Instance.DispatchHasReturn<int, int, int, int, int> (SNMsg.ExampleMsg, 1, 1, 1, 1);
-      Assert.AreEqual (default(int), TestInt);
+      TestInt = 100;
+
+      Assert.IsFalse (SNKit.Instance.DispatchHasReturn<int, int, int, int, int> (SNMsg.ExampleMsg, 1, 1, 1, 1, ref TestInt));
+      Assert.AreEqual (100, TestInt);
     }
 
     [Test]
@@ -480,13 +488,13 @@ namespace SNTest
       SNKit.Instance [SNContextLevel.DEFAULT].GetSNEvent (SNMsg.ExampleMsg).AutoRelease = false;
       Assert.IsTrue (!SNKit.Instance [SNContextLevel.DEFAULT].GetSNEvent (SNMsg.ExampleMsg).AutoRelease);
 
-      TestInt = SNKit.Instance.DispatchHasReturn<int, int, int, int, int, int> (SNMsg.ExampleMsg, 1, 1, 1, 1, 1);
+      Assert.IsTrue (SNKit.Instance.DispatchHasReturn<int, int, int, int, int, int> (SNMsg.ExampleMsg, 1, 1, 1, 1, 1, ref TestInt));
       Assert.AreEqual (5, TestInt);
 
-      TestInt = SNKit.Instance.DispatchHasReturn<int, int, int, int, int, int> (SNMsg.ExampleMsg, 1, 1, 1, 1, 1);
+      Assert.IsTrue (SNKit.Instance.DispatchHasReturn<int, int, int, int, int, int> (SNMsg.ExampleMsg, 1, 1, 1, 1, 1, ref TestInt));
       Assert.AreEqual (10, TestInt);
 
-      TestInt = SNKit.Instance.DispatchHasReturn<int, int, int, int, int, int> (SNMsg.ExampleMsg, 1, 1, 1, 1, 1);
+      Assert.IsTrue (SNKit.Instance.DispatchHasReturn<int, int, int, int, int, int> (SNMsg.ExampleMsg, 1, 1, 1, 1, 1, ref TestInt));
       Assert.AreEqual (15, TestInt);
     }
 
@@ -499,14 +507,14 @@ namespace SNTest
 
       Assert.IsTrue (SNKit.Instance [SNContextLevel.DEFAULT].GetSNEvent (SNMsg.ExampleMsg).AutoRelease);
 
-      TestInt = SNKit.Instance.DispatchHasReturn<int, int, int, int, int, int> (SNMsg.ExampleMsg, 1, 1, 1, 1, 1);
+      Assert.IsTrue (SNKit.Instance.DispatchHasReturn<int, int, int, int, int, int> (SNMsg.ExampleMsg, 1, 1, 1, 1, 1, ref TestInt));
       Assert.AreEqual (5, TestInt);
 
-      TestInt = SNKit.Instance.DispatchHasReturn<int, int, int, int, int, int> (SNMsg.ExampleMsg, 1, 1, 1, 1, 1);
-      Assert.AreEqual (default(int), TestInt);
+      TestInt = 100;
 
-      TestInt = SNKit.Instance.DispatchHasReturn<int, int, int, int, int, int> (SNMsg.ExampleMsg, 1, 1, 1, 1, 1);
-      Assert.AreEqual (default(int), TestInt);
+      Assert.IsFalse (SNKit.Instance.DispatchHasReturn<int, int, int, int, int, int> (SNMsg.ExampleMsg, 1, 1, 1, 1, 1, ref TestInt));
+      Assert.AreEqual (100, TestInt);
+
     }
 
 
@@ -524,5 +532,6 @@ namespace SNTest
       Assert.AreEqual ((SNKit.Instance [SNContextLevel.DEFAULT].Context [0] as SN).ResetTimes, 1);
     }
 
+   
   }
 }

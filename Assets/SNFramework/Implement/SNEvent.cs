@@ -182,71 +182,83 @@ namespace SNFramework
       return this;
     }
 
-    public TResult DispatchHasReturn<TResult> (string name)
+    public bool DispatchHasReturn<TResult> (string name, ref TResult result)
     {
       System.Func<TResult> func = GetDelegate (name, typeof(System.Func<TResult>)) as System.Func<TResult>;
       if (func != null) {
         if (AutoRelease)
           Reset ();
-        return func ();
+
+        result = func (); 
+        return true;
       }
-      return default(TResult);
+      return false;
     }
 
-    public TResult DispatchHasReturn<T, TResult> (string name, T arg1)
+    public bool DispatchHasReturn<T, TResult> (string name, T arg1, ref TResult result)
     {
       System.Func<T, TResult> func = GetDelegate (name, typeof(System.Func<T, TResult>)) as System.Func<T, TResult>;
       if (func != null) {
         if (AutoRelease)
           Reset ();
-        return func (arg1);
+
+        result = func (arg1); 
+        return true;
       }
-      return default(TResult);
+      return false;
     }
 
-    public TResult DispatchHasReturn<T, U, TResult> (string name, T arg1, U arg2)
+    public bool DispatchHasReturn<T, U, TResult> (string name, T arg1, U arg2, ref TResult result)
     {
       System.Func<T, U, TResult> func = GetDelegate (name, typeof(System.Func<T, U, TResult>)) as System.Func<T, U, TResult>;
       if (func != null) {
         if (AutoRelease)
           Reset ();
-        return func (arg1, arg2);
+
+        result = func (arg1, arg2); 
+        return true;
       }
-      return default(TResult);
+      return false;
     }
 
-    public TResult DispatchHasReturn<T, U, V, TResult> (string name, T arg1, U arg2, V arg3)
+    public bool DispatchHasReturn<T, U, V, TResult> (string name, T arg1, U arg2, V arg3, ref TResult result)
     {
       System.Func<T, U, V, TResult> func = GetDelegate (name, typeof(System.Func<T, U, V, TResult>)) as System.Func<T, U, V, TResult>;
       if (func != null) {
         if (AutoRelease)
           Reset ();
-        return func (arg1, arg2, arg3);
+
+        result = func (arg1, arg2, arg3); 
+        return true;
       }
-      return default(TResult);
+      return false;
     }
 
-    public TResult DispatchHasReturn<T, U, V, W, TResult> (string name, T arg1, U arg2, V arg3, W arg4)
+    public bool DispatchHasReturn<T, U, V, W, TResult> (string name, T arg1, U arg2, V arg3, W arg4, ref TResult result)
     {
       System.Func<T, U, V, W, TResult> func = GetDelegate (name, typeof(System.Func<T, U, V, W, TResult>)) as System.Func<T, U, V, W, TResult>;
       if (func != null) {
         if (AutoRelease)
           Reset ();
-        return func (arg1, arg2, arg3, arg4);
+
+        result = func (arg1, arg2, arg3, arg4); 
+        return true;
       }
-      return default(TResult);
+      return false;
     }
 
-    public TResult DispatchHasReturn<T, U, V, W, X, TResult> (string name, T arg1, U arg2, V arg3, W arg4, X arg5)
+    public bool DispatchHasReturn<T, U, V, W, X, TResult> (string name, T arg1, U arg2, V arg3, W arg4, X arg5, ref TResult result)
     {
       Func<T, U, V, W, X, TResult> func = GetDelegate (name, typeof(Func<T, U, V, W, X, TResult>)) as Func<T, U, V, W, X, TResult>;
 
       if (func != null) {
         if (AutoRelease)
           Reset ();
-        return func (arg1, arg2, arg3, arg4, arg5);
+
+        result = func (arg1, arg2, arg3, arg4, arg5); 
+        return true;
       }
-      return default(TResult);
+      return false;
     }
 
     public override ISN Reset ()
