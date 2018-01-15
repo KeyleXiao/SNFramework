@@ -19,94 +19,77 @@ namespace SNFramework
       get { return instance ?? (instance = new SNKit ()); }
     }
 
-    protected void CreateSNEvent (Delegate g)
+
+
+    public SNKit Register (Action m, string context = SNContextLevel.DEFAULT)
     {
-      var atr = g.Method.GetCustomAttributes (false) [0] as SNMethodAttribute;
-      var que = GetContext (atr.context);
-
-      for (int i = 0; i < que.Context.Count; i++) {
-        if (que.Context [i].IdentifiedSign == atr.SNEventName) {
-          que.Context [i].Register (atr.SNEventName, g);
-          return;
-        }
-      }
-
-      ISNEvent e = new SNEvent ();
-      e.AutoRelease = atr.AutoRelease;
-      e.IdentifiedSign = atr.SNEventName;
-      e.Register (atr.SNEventName, g);
-      que.UpdateSNEvent (e);
-    }
-
-    public SNKit Register (Action m)
-    {
-      CreateSNEvent (m);
+      GetContext (context).CreateSNEvent (m);
       return this;
     }
 
-    public SNKit Register<T> (Action<T> m)
+    public SNKit Register<T> (Action<T> m, string context = SNContextLevel.DEFAULT)
     {
-      CreateSNEvent (m);
+      GetContext (context).CreateSNEvent (m);
       return this;
     }
 
-    public SNKit Register<T, U> (Action<T, U> m)
+    public SNKit Register<T, U> (Action<T, U> m, string context = SNContextLevel.DEFAULT)
     {
-      CreateSNEvent (m);
+      GetContext (context).CreateSNEvent (m);
       return this;
     }
 
-    public SNKit Register<T, U, V> (Action<T, U, V> m)
+    public SNKit Register<T, U, V> (Action<T, U, V> m, string context = SNContextLevel.DEFAULT)
     {
-      CreateSNEvent (m);
+      GetContext (context).CreateSNEvent (m);
       return this;
     }
 
-    public SNKit Register<T, U, V, W> (Action<T, U, V, W> m)
+    public SNKit Register<T, U, V, W> (Action<T, U, V, W> m, string context = SNContextLevel.DEFAULT)
     {
-      CreateSNEvent (m);
+      GetContext (context).CreateSNEvent (m);
       return this;
     }
 
-    public SNKit Register<T, U, V, W, X> (Action<T, U, V, W, X> m)
+    public SNKit Register<T, U, V, W, X> (Action<T, U, V, W, X> m, string context = SNContextLevel.DEFAULT)
     {
-      CreateSNEvent (m);
+      GetContext (context).CreateSNEvent (m);
       return this;
     }
 
-    public SNKit Register<TResult> (Func<TResult> m)
+    public SNKit Register<TResult> (Func<TResult> m, string context = SNContextLevel.DEFAULT)
     {
-      CreateSNEvent (m);
+      GetContext (context).CreateSNEvent (m);
       return this;
     }
 
-    public SNKit Register<T, TResult> (Func<T, TResult> m)
+    public SNKit Register<T, TResult> (Func<T, TResult> m, string context = SNContextLevel.DEFAULT)
     {
-      CreateSNEvent (m);
+      GetContext (context).CreateSNEvent (m);
       return this;
     }
 
-    public SNKit Register<T, U, TResult> (Func<T, U, TResult> m)
+    public SNKit Register<T, U, TResult> (Func<T, U, TResult> m, string context = SNContextLevel.DEFAULT)
     {
-      CreateSNEvent (m);
+      GetContext (context).CreateSNEvent (m);
       return this;
     }
 
-    public SNKit Register<T, U, V, TResult> (Func<T, U, V, TResult> m)
+    public SNKit Register<T, U, V, TResult> (Func<T, U, V, TResult> m, string context = SNContextLevel.DEFAULT)
     {
-      CreateSNEvent (m);
+      GetContext (context).CreateSNEvent (m);
       return this;
     }
 
-    public SNKit Register<T, U, V, W, TResult> (Func<T, U, V, W, TResult> m)
+    public SNKit Register<T, U, V, W, TResult> (Func<T, U, V, W, TResult> m, string context = SNContextLevel.DEFAULT)
     {
-      CreateSNEvent (m);
+      GetContext (context).CreateSNEvent (m);
       return this;
     }
 
-    public SNKit Register<T, U, V, W, X, TResult> (Func<T, U, V, W, X, TResult> m)
+    public SNKit Register<T, U, V, W, X, TResult> (Func<T, U, V, W, X, TResult> m, string context = SNContextLevel.DEFAULT)
     {
-      CreateSNEvent (m);
+      GetContext (context).CreateSNEvent (m);
       return this;
     }
 

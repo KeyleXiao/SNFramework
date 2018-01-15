@@ -14,28 +14,28 @@ namespace SNFramework
 
     SNKit ResetContext ();
 
-    SNKit Register (Action m);
+    SNKit Register (Action m, string context = SNContextLevel.DEFAULT);
 
-    SNKit Register<T> (Action<T> m);
+    SNKit Register<T> (Action<T> m, string context = SNContextLevel.DEFAULT);
 
-    SNKit Register<T, U> (Action<T, U> m);
+    SNKit Register<T, U> (Action<T, U> m, string context = SNContextLevel.DEFAULT);
 
-    SNKit Register<T, U, V> (Action<T, U, V> m);
+    SNKit Register<T, U, V> (Action<T, U, V> m, string context = SNContextLevel.DEFAULT);
 
-    SNKit Register<T, U, V, W> (Action<T, U, V, W> m);
+    SNKit Register<T, U, V, W> (Action<T, U, V, W> m, string context = SNContextLevel.DEFAULT);
 
-    SNKit Register<T, U, V, W, X> (Action<T, U, V, W, X> m);
+    SNKit Register<T, U, V, W, X> (Action<T, U, V, W, X> m, string context = SNContextLevel.DEFAULT);
 
-    SNKit Register<TResult> (Func<TResult> m);
+    SNKit Register<TResult> (Func<TResult> m, string context = SNContextLevel.DEFAULT);
 
-    SNKit Register<T, TResult> (Func<T, TResult> m);
+    SNKit Register<T, TResult> (Func<T, TResult> m, string context = SNContextLevel.DEFAULT);
 
-    SNKit Register<T, U, TResult> (Func<T, U, TResult> m);
+    SNKit Register<T, U, TResult> (Func<T, U, TResult> m, string context = SNContextLevel.DEFAULT);
 
-    SNKit Register<T, U, V, TResult> (Func<T, U, V, TResult> m);
+    SNKit Register<T, U, V, TResult> (Func<T, U, V, TResult> m, string context = SNContextLevel.DEFAULT);
 
-    SNKit Register<T, U, V, W, TResult> (Func<T, U, V, W, TResult> m);
+    SNKit Register<T, U, V, W, TResult> (Func<T, U, V, W, TResult> m, string context = SNContextLevel.DEFAULT);
 
-    SNKit Register<T, U, V, W, X, TResult> (Func<T, U, V, W, X, TResult> m);
+    SNKit Register<T, U, V, W, X, TResult> (Func<T, U, V, W, X, TResult> m, string context = SNContextLevel.DEFAULT);
   }
 }

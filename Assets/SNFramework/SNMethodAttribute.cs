@@ -3,17 +3,15 @@ using System;
 
 namespace SNFramework
 {
-  [AttributeUsage(AttributeTargets.Method, Inherited = false, AllowMultiple = true)]
+  [AttributeUsage (AttributeTargets.Method, Inherited = false, AllowMultiple = true)]
   public sealed class SNMethodAttribute : Attribute
   {
     public readonly string SNEventName;
     public readonly bool AutoRelease;
-    public readonly string context;
 
-    public SNMethodAttribute(string snEventName, bool autoRelease = true, string contextType = SNContextLevel.DEFAULT)
+    public SNMethodAttribute (string snEventName, bool autoRelease = true)
     {
       AutoRelease = autoRelease;
-      context = contextType;
       SNEventName = snEventName;
     }
   }

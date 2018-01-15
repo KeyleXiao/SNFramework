@@ -17,68 +17,68 @@ namespace SNTest
       TestInt = 1;
     }
 
-    [SNMethod (SNMsg.ExampleMsg, true, SNContextLevel.DEFAULT)]
+    [SNMethod (SNMsg.ExampleMsg, true)]
     public void Test1 (int a)
     {
       TestInt = a;
     }
 
-    [SNMethod (SNMsg.ExampleMsg, true, SNContextLevel.DEFAULT)]
+    [SNMethod (SNMsg.ExampleMsg, true)]
     public void Test2 (int a, int b)
     {
       TestInt += (a + b);
     }
 
-    [SNMethod (SNMsg.ExampleMsg, true, SNContextLevel.DEFAULT)]
+    [SNMethod (SNMsg.ExampleMsg, true)]
     public void Test3 (int a, int b, int c)
     {
       TestInt += (a + b + c);
     }
 
-    [SNMethod (SNMsg.ExampleMsg, true, SNContextLevel.DEFAULT)]
+    [SNMethod (SNMsg.ExampleMsg, true)]
     public void Test4 (int a, int b, int c, int d)
     {
       TestInt += a + b + c + d;
     }
 
-    [SNMethod (SNMsg.ExampleMsg, true, SNContextLevel.DEFAULT)]
+    [SNMethod (SNMsg.ExampleMsg, true)]
     public void Test5 (int a, int b, int c, int d, int e)
     {
       TestInt += a + b + c + d + e;
     }
 
 
-    [SNMethod (SNMsg.ExampleMsg, true, SNContextLevel.DEFAULT)]
+    [SNMethod (SNMsg.ExampleMsg, true)]
     public int TestHasReturn ()
     {
       return TestInt = 1;
     }
 
-    [SNMethod (SNMsg.ExampleMsg, true, SNContextLevel.DEFAULT)]
+    [SNMethod (SNMsg.ExampleMsg, true)]
     public int TestHasReturn1 (int a)
     {
       return TestInt = a;
     }
 
-    [SNMethod (SNMsg.ExampleMsg, true, SNContextLevel.DEFAULT)]
+    [SNMethod (SNMsg.ExampleMsg, true)]
     public int TestHasReturn2 (int a, int b)
     {
       return TestInt += (a + b);
     }
 
-    [SNMethod (SNMsg.ExampleMsg, true, SNContextLevel.DEFAULT)]
+    [SNMethod (SNMsg.ExampleMsg, true)]
     public int TestHasReturn3 (int a, int b, int c)
     {
       return TestInt += (a + b + c);
     }
 
-    [SNMethod (SNMsg.ExampleMsg, true, SNContextLevel.DEFAULT)]
+    [SNMethod (SNMsg.ExampleMsg, true)]
     public int TestHasReturn4 (int a, int b, int c, int d)
     {
       return TestInt += (a + b + c + d);
     }
 
-    [SNMethod (SNMsg.ExampleMsg, true, SNContextLevel.DEFAULT)]
+    [SNMethod (SNMsg.ExampleMsg, true)]
     public int TestHasReturn5 (int a, int b, int c, int d, int e)
     {
       return TestInt += (a + b + c + d + e);
@@ -526,12 +526,12 @@ namespace SNTest
       ResetEveryTest ();
       SNKit.Instance.Register (Test);
 
-      Assert.AreEqual ((SNKit.Instance [SNContextLevel.DEFAULT].Context [0] as SN).ResetTimes, 0);
+      Assert.AreEqual ((SNKit.Instance [SNContextLevel.DEFAULT].GetSNEvent (SNMsg.ExampleMsg) as SN).ResetTimes, 0);
 
       SNKit.Instance.ResetContext ();
-      Assert.AreEqual (SNKit.Instance [SNContextLevel.DEFAULT].Context.Count, 1);
+
       Assert.AreEqual ((SNKit.Instance [SNContextLevel.DEFAULT] as SN).ResetTimes, 1);
-      Assert.AreEqual ((SNKit.Instance [SNContextLevel.DEFAULT].Context [0] as SN).ResetTimes, 1);
+      Assert.AreEqual ((SNKit.Instance [SNContextLevel.DEFAULT].GetSNEvent (SNMsg.ExampleMsg) as SN).ResetTimes, 1);
     }
 
   }

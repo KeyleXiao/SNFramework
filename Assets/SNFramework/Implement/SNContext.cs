@@ -15,7 +15,7 @@ namespace SNFramework
 
     public string ContextModel { get; set; }
 
-    public List<ISNEvent> Context { get; set; }
+    protected List<ISNEvent> Context { get; set; }
 
     public ISNContext RemoveSNEvent (ISNEvent sn)
     {
@@ -54,16 +54,15 @@ namespace SNFramework
 
 
 
-    public ISNContext UpdateSNEvent (ISNEvent sn)
+    public ISNEvent UpdateSNEvent (ISNEvent sn)
     {
       for (int i = 0; i < Context.Count; i++) {
         if (Context [i].IdentifiedSign == sn.IdentifiedSign) {
-          Context [i] = sn;
-          return this;
+          return (Context [i] = sn);
         }
       }
       Context.Add (sn);
-      return this;
+      return sn;
     }
 
 
@@ -104,6 +103,24 @@ namespace SNFramework
       e.IdentifiedSign = identifiedEventName;
       Context.Add (e);
       return e;
+    }
+
+
+    public ISNEvent CreateSNEvent (Delegate g)
+    {
+      var atr = g.Method.GetCustomAttributes (false) [0] as SNMethodAttribute;
+
+      for (int i = 0; i < Context.Count; i++) {
+        if (Context [i].IdentifiedSign == atr.SNEventName) {
+          return Context [i].Register (atr.SNEventName, g);
+        }
+      }
+
+      ISNEvent e = new SNEvent ();
+      e.AutoRelease = atr.AutoRelease;
+      e.IdentifiedSign = atr.SNEventName;
+      e.Register (atr.SNEventName, g);
+      return UpdateSNEvent (e);
     }
 
 

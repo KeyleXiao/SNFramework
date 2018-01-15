@@ -6,7 +6,7 @@ namespace SNFramework
 {
   public interface ISNContext : ISN
   {
-    List<ISNEvent> Context { get; set; }
+    //    List<ISNEvent> Context { get; set; }
 
     string ContextModel { get; set; }
 
@@ -14,10 +14,12 @@ namespace SNFramework
 
     ISNEvent CreateSNEvent (string identifiedEventName);
 
+    ISNEvent CreateSNEvent (Delegate g);
+
     ISNEvent SetSNEvent (string identifiedOrEventName, ISNEvent value);
 
     ISNContext RemoveSNEvent (ISNEvent sn);
 
-    ISNContext UpdateSNEvent (ISNEvent sn);
+    ISNEvent UpdateSNEvent (ISNEvent sn);
   }
 }
