@@ -83,7 +83,7 @@ public void AddHasReturnTest5 ()
 /// </summary>
 public partial class SNMsg
 {
-public const string ExampleMsg = "0x0";
+  public const string ExampleMsg = "0x0";
 }
 
 /// <summary>
@@ -91,8 +91,8 @@ public const string ExampleMsg = "0x0";
 /// </summary>
 public partial class SNContextLevel
 {
-public const string DEFAULT = "0x0";
-public const string BOARDCAST = "0x1";
+  public const string DEFAULT = "0x0";
+  public const string BOARDCAST = "0x1";
 }
 ```
 
