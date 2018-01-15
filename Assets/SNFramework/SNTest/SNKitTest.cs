@@ -326,7 +326,7 @@ namespace SNTest
 
       TestInt = SNKit.Instance.DispatchHasReturn<int> (SNMsg.ExampleMsg);
 
-      Assert.AreEqual (0, TestInt);
+      Assert.AreEqual (default(int), TestInt);
     }
 
     [Test]
@@ -360,7 +360,7 @@ namespace SNTest
       Assert.AreEqual (1, TestInt);
 
       TestInt = SNKit.Instance.DispatchHasReturn<int, int> (SNMsg.ExampleMsg, 1);
-      Assert.AreEqual (0, TestInt);
+      Assert.AreEqual (default(int), TestInt);
     }
 
 
@@ -395,7 +395,7 @@ namespace SNTest
       Assert.AreEqual (2, TestInt);
 
       TestInt = SNKit.Instance.DispatchHasReturn<int, int, int> (SNMsg.ExampleMsg, 1, 1);
-      Assert.AreEqual (0, TestInt);
+      Assert.AreEqual (default(int), TestInt);
     }
 
     [Test]
@@ -429,7 +429,7 @@ namespace SNTest
       Assert.AreEqual (3, TestInt);
 
       TestInt = SNKit.Instance.DispatchHasReturn<int, int, int, int> (SNMsg.ExampleMsg, 1, 1, 1);
-      Assert.AreEqual (0, TestInt);
+      Assert.AreEqual (default(int), TestInt);
     }
 
 
@@ -467,7 +467,7 @@ namespace SNTest
       Assert.AreEqual (4, TestInt);
 
       TestInt = SNKit.Instance.DispatchHasReturn<int, int, int, int, int> (SNMsg.ExampleMsg, 1, 1, 1, 1);
-      Assert.AreEqual (0, TestInt);
+      Assert.AreEqual (default(int), TestInt);
     }
 
     [Test]
@@ -503,10 +503,10 @@ namespace SNTest
       Assert.AreEqual (5, TestInt);
 
       TestInt = SNKit.Instance.DispatchHasReturn<int, int, int, int, int, int> (SNMsg.ExampleMsg, 1, 1, 1, 1, 1);
-      Assert.AreEqual (0, TestInt);
+      Assert.AreEqual (default(int), TestInt);
 
       TestInt = SNKit.Instance.DispatchHasReturn<int, int, int, int, int, int> (SNMsg.ExampleMsg, 1, 1, 1, 1, 1);
-      Assert.AreEqual (0, TestInt);
+      Assert.AreEqual (default(int), TestInt);
     }
 
 
