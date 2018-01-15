@@ -22,7 +22,9 @@ namespace SNFramework
 
     public virtual ISN Log (string msg)
     {
+      #if UNITY_EDITOR
       throw new System.Exception (string.Format ("SNFramework Log [{0}]", msg));
+      #endif
     }
 
     public virtual ISN Reset ()

@@ -7,9 +7,9 @@ using NUnit.Framework;
 
 namespace SNTest
 {
-  public class SNKitTest
+  public class SNKitCrossContextTest
   {
-    public string dispatchLevel = SNContextLevel.DEFAULT;
+    public string dispatchLevel = SNContextLevel.BOARDCAST;
 
     [SNMethod (SNMsg.ExampleMsg)]
     public void Test ()
@@ -534,6 +534,5 @@ namespace SNTest
       Assert.AreEqual ((SNKit.Instance [SNContextLevel.DEFAULT].Context [0] as SN).ResetTimes, 1);
     }
 
-   
   }
 }

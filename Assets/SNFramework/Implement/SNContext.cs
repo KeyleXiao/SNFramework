@@ -17,7 +17,6 @@ namespace SNFramework
 
     public List<ISNEvent> Context { get; set; }
 
-
     public ISNContext RemoveSNEvent (ISNEvent sn)
     {
       if (Context.Contains (sn)) {
@@ -72,7 +71,7 @@ namespace SNFramework
     {
       if (Context == null) {
         Context = new List<ISNEvent> ();
-        Log ("Context IS NULL");
+        CreateSNEvent (identifiedOrEventName);
         return null;
       }
       for (int i = 0; i < Context.Count; i++) {
@@ -80,26 +79,42 @@ namespace SNFramework
           return Context [i];
         }
       }
-      return null;
+
+      return CreateSNEvent (identifiedOrEventName);
+    }
+
+
+    public ISNEvent SetSNEvent (string identifiedOrEventName, ISNEvent value)
+    {
+      for (int i = 0; i < Context.Count; i++) {
+        if (Context [i].IdentifiedSign == value.IdentifiedSign) {
+          Context [i] = value;
+          return Context [i];
+        }
+      } 
+
+      CreateSNEvent (identifiedOrEventName);
+      return SetSNEvent (identifiedOrEventName, value);
+    }
+
+    public ISNEvent CreateSNEvent (string identifiedEventName)
+    {
+      ISNEvent e = new SNEvent ();
+      e.AutoRelease = false;
+      e.IdentifiedSign = identifiedEventName;
+      Context.Add (e);
+      return e;
     }
 
 
 
     public ISNEvent this [string identifiedSign] {
       get {
-        for (int i = 0; i < Context.Count; i++) {
-          if (Context [i].IdentifiedSign == identifiedSign) {
-            return Context [i];
-          }
-        }
+        GetSNEvent (identifiedSign);
         return null;
       }
       set {
-        for (int i = 0; i < Context.Count; i++) {
-          if (Context [i].IdentifiedSign == identifiedSign) {
-            Context [i] = value;
-          }
-        }
+        SetSNEvent (identifiedSign, value);
       }
     }
   }

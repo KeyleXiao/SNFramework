@@ -12,6 +12,10 @@ namespace SNFramework
 
     ISNEvent GetSNEvent (string sign);
 
+    ISNEvent CreateSNEvent (string identifiedEventName);
+
+    ISNEvent SetSNEvent (string identifiedOrEventName, ISNEvent value);
+
     ISNContext RemoveSNEvent (ISNEvent sn);
 
     ISNContext UpdateSNEvent (ISNEvent sn);

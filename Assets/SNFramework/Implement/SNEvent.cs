@@ -11,6 +11,10 @@ namespace SNFramework
       SNTable = new Dictionary<Type, Dictionary<string, Delegate>> ();
     }
 
+    /// <summary>
+    /// 是否触发一次后自动释放
+    /// </summary>
+    /// <value><c>true</c> if auto release; otherwise, <c>false</c>.</value>
     public bool AutoRelease { get; set; }
 
     protected Dictionary<Type, Dictionary<string, Delegate>> SNTable { get; set; }
@@ -263,6 +267,8 @@ namespace SNFramework
 
     public override ISN Reset ()
     {
+      AutoRelease = false; //设置基础属性的默认值
+
       base.Reset ();
       if (SNTable != null) {
         SNTable.Clear ();
