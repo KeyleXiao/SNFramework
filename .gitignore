@@ -7,3 +7,4 @@ Assembly-CSharp.csproj
 SNFramework.sln
 SNFramework.userprefs
 Temp
+*.csproj
