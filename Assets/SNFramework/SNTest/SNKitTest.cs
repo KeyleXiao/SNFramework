@@ -1,8 +1,5 @@
 ﻿//if you hava any problem please email to keyle_xiao@hotmail.com
-using System;
 using SNFramework;
-using UnityEngine.TestTools;
-using NUnit.Framework.Internal;
 using NUnit.Framework;
 
 namespace SNTest
