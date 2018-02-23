@@ -52,22 +52,22 @@ public int TestHasReturn5 (int a, int b, int c, int d, int e)
 }
 
 [Test]
-public void AddHasReturnTest5 ()
+public void CrossContextAddHasReturnTest5 ()
 {
   ResetEveryTest ();
-  SNKit.Instance.Register<int, int, int, int, int, int> (TestHasReturn5);
+  SNKit.Instance.Register<int, int, int, int, int, int> (TestHasReturn5); //如果是匿名函数则不需要指定类型
   Assert.AreEqual (SNKit.Instance.SNContexts.Count, 1);
 
-  SNKit.Instance [SNContextLevel.DEFAULT].GetSNEvent (SNMsg.ExampleMsg).AutoRelease = false; //手动关闭自动释放
+  SNKit.Instance [SNContextLevel.DEFAULT].GetSNEvent (SNMsg.ExampleMsg).AutoRelease = false;
   Assert.IsTrue (!SNKit.Instance [SNContextLevel.DEFAULT].GetSNEvent (SNMsg.ExampleMsg).AutoRelease);
 
-  Assert.IsTrue (SNKit.Instance.DispatchHasReturn<int, int, int, int, int, int> (SNMsg.ExampleMsg, 1, 1, 1, 1, 1, ref TestInt, dispatchLevel));
+  Assert.IsTrue (SNKit.Instance.DispatchHasReturn (SNMsg.ExampleMsg, 1, 1, 1, 1, 1, ref TestInt, dispatchLevel));
   Assert.AreEqual (5, TestInt);
 
-  Assert.IsTrue (SNKit.Instance.DispatchHasReturn<int, int, int, int, int, int> (SNMsg.ExampleMsg, 1, 1, 1, 1, 1, ref TestInt, dispatchLevel));
+  Assert.IsTrue (SNKit.Instance.DispatchHasReturn(SNMsg.ExampleMsg, 1, 1, 1, 1, 1, ref TestInt, dispatchLevel));
   Assert.AreEqual (10, TestInt);
 
-  Assert.IsTrue (SNKit.Instance.DispatchHasReturn<int, int, int, int, int, int> (SNMsg.ExampleMsg, 1, 1, 1, 1, 1, ref TestInt, dispatchLevel));
+  Assert.IsTrue (SNKit.Instance.DispatchHasReturn (SNMsg.ExampleMsg, 1, 1, 1, 1, 1, ref TestInt, dispatchLevel));
   Assert.AreEqual (15, TestInt);
 }
 

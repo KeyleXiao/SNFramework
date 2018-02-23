@@ -7,10 +7,11 @@ namespace SNTest
 {
   public class SNEventTest
   {
+
     [Test]
     public void RegisterSNEventTest0 ()
     {
-      var testInsintace = new SNEvent ();
+      ISNEvent testInsintace = new SNEvent ();
       ISNEvent e = null;
 
       Action voidAc = () => {
@@ -22,7 +23,7 @@ namespace SNTest
     [Test]
     public void RegisterSNEventTest1 ()
     {
-      var testInsintace = new SNEvent ();
+      ISNEvent testInsintace = new SNEvent ();
       ISNEvent e = null;
 
       Action<int> voidAc1 = (int i) => {
@@ -34,10 +35,10 @@ namespace SNTest
     [Test]
     public void RegisterSNEventTest2 ()
     {
-      var testInsintace = new SNEvent ();
+      ISNEvent testInsintace = new SNEvent ();
       ISNEvent e = null;
 
-      Action<string, int> voidAc2 = (string s, int i) => {
+     Action<string,int> voidAc2 = (string s, int i) => {
       };
       e = testInsintace.Register (SNMsg.ExampleMsg, voidAc2);
       Assert.IsNotNull (e);
@@ -46,7 +47,7 @@ namespace SNTest
     [Test]
     public void RegisterSNEventTest3 ()
     {
-      var testInsintace = new SNEvent ();
+      ISNEvent testInsintace = new SNEvent ();
       ISNEvent e = null;
 
       Action<string, int, int> voidAc3 = (string s, int i, int p3) => {
@@ -58,7 +59,7 @@ namespace SNTest
     [Test]
     public void RegisterSNEventTest4 ()
     {
-      var testInsintace = new SNEvent ();
+      ISNEvent testInsintace = new SNEvent ();
       ISNEvent e = null;
 
       Action<string, int, int, int> voidAc4 = (string s, int i, int p3, int p4) => {
@@ -70,7 +71,7 @@ namespace SNTest
     [Test]
     public void RegisterSNEventTest5 ()
     {
-      var testInsintace = new SNEvent ();
+      ISNEvent testInsintace = new SNEvent ();
       ISNEvent e = null;
 
       SNFramework.Action<string, int, int, int, int> voidAc5 = (string s, int i, int p3, int p4, int p5) => {
@@ -84,7 +85,7 @@ namespace SNTest
     [Test]
     public void SendSNEventTest0 ()
     {
-      var testInsintace = new SNEvent ();
+      ISNEvent testInsintace = new SNEvent ();
       int param = 0;
 
       Action voidAc = () => {
@@ -98,7 +99,7 @@ namespace SNTest
     [Test]
     public void SendSNEventTest1 ()
     {
-      var testInsintace = new SNEvent ();
+      ISNEvent testInsintace = new SNEvent ();
       int param = 0;
 
       Action<int> voidAc1 = (int i) => {
@@ -113,7 +114,7 @@ namespace SNTest
     [Test]
     public void SendSNEventTest2 ()
     {
-      var testInsintace = new SNEvent ();
+      ISNEvent testInsintace = new SNEvent ();
       string str = "";
       int param = 0;
 
@@ -131,7 +132,7 @@ namespace SNTest
     [Test]
     public void SendSNEventTest3 ()
     {
-      var testInsintace = new SNEvent ();
+      ISNEvent testInsintace = new SNEvent ();
       string str = "";
       int param = 0;
       int param2 = 0;
@@ -150,7 +151,7 @@ namespace SNTest
     [Test]
     public void SendSNEventTest4 ()
     {
-      var testInsintace = new SNEvent ();
+      ISNEvent testInsintace = new SNEvent ();
       string str = "";
       int param = 0;
       int param2 = 0;
@@ -173,7 +174,7 @@ namespace SNTest
     [Test]
     public void SendSNEventTest5 ()
     {
-      var testInsintace = new SNEvent ();
+      ISNEvent testInsintace = new SNEvent ();
       string str = "";
       int param = 0;
       int param2 = 0;
@@ -207,7 +208,7 @@ namespace SNTest
     [Test]
     public void SendSNEventHasReturn ()
     {
-      var testInsintace = new SNEvent ();
+      ISNEvent testInsintace = new SNEvent ();
 
       Func<int> voidFc = () => {
         return 1;
@@ -222,7 +223,7 @@ namespace SNTest
     public void SendSNEventHasReturn1 ()
     {
       ResetEveryTest ();
-      var testInsintace = new SNEvent ();
+      ISNEvent testInsintace = new SNEvent ();
 
       Func<int, int> voidFc1 = (int i) => {
         return i;
@@ -236,7 +237,7 @@ namespace SNTest
     public void SendSNEventHasReturn2 ()
     {
       ResetEveryTest ();
-      var testInsintace = new SNEvent ();
+      ISNEvent testInsintace = new SNEvent ();
 
       Func<int, int, int> voidFc = (int i, int i2) => {
         return i + i2;
@@ -250,7 +251,7 @@ namespace SNTest
     public void SendSNEventHasReturn3 ()
     {
       ResetEveryTest ();
-      var testInsintace = new SNEvent ();
+      ISNEvent testInsintace = new SNEvent ();
 
       Func<int, int, int, int> voidFc = (int i, int i2, int i3) => {
         return i + i2 + i3;
@@ -264,7 +265,7 @@ namespace SNTest
     public void SendSNEventHasReturn4 ()
     {
       ResetEveryTest ();
-      var testInsintace = new SNEvent ();
+      ISNEvent testInsintace = new SNEvent ();
       int value = 0;
       Func<int, int, int, int, int> voidFc = (int i, int i2, int i3, int i4) => {
         return (value += (i + i2 + i3 + i4));
@@ -280,7 +281,7 @@ namespace SNTest
     public void SendSNEventHasReturn5 ()
     {
       ResetEveryTest ();
-      var testInsintace = new SNEvent ();
+      ISNEvent testInsintace = new SNEvent ();
       int value = 0;
 
       SNFramework.Func<int, int, int, int, int, int> voidFc = (int i, int i2, int i3, int i4, int i5) => {
@@ -302,7 +303,7 @@ namespace SNTest
     [Test]
     public void UnregisterSNEventTest ()
     {
-      var testInsintace = new SNEvent ();
+      ISNEvent testInsintace = new SNEvent ();
 
       Action voidAc = () => {
       };

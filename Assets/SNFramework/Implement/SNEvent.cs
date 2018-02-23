@@ -54,7 +54,7 @@ namespace SNFramework
       Dictionary<string, Delegate> dictionary;
       if (!SNTable.TryGetValue (handler.GetType (), out dictionary)) {
         dictionary = new Dictionary<string, Delegate> ();
-        SNTable.Add (handler.GetType (), dictionary);
+        SNTable.Add (handler.GetType (), dictionary); //Create new instance
       }
       Delegate a;
       if (dictionary.TryGetValue (name, out a)) {
@@ -99,7 +99,7 @@ namespace SNFramework
     {
       return Register (name, (Delegate)handler);
     }
-
+    
     public ISNEvent Register<T, U, TResult> (string name, System.Func<T, U, TResult> handler)
     {
       return Register (name, (Delegate)handler);

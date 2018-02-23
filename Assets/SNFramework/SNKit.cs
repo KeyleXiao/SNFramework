@@ -19,74 +19,66 @@ namespace SNFramework
       get { return instance ?? (instance = new SNKit ()); }
     }
 
-
-
+    public SNKit Register(Delegate m, string context = SNContextLevel.DEFAULT)
+    {
+      GetContext (context).CreateSNEvent (m);
+      return this;
+    }
     public SNKit Register (Action m, string context = SNContextLevel.DEFAULT)
     {
       GetContext (context).CreateSNEvent (m);
       return this;
     }
-
     public SNKit Register<T> (Action<T> m, string context = SNContextLevel.DEFAULT)
     {
       GetContext (context).CreateSNEvent (m);
       return this;
     }
-
     public SNKit Register<T, U> (Action<T, U> m, string context = SNContextLevel.DEFAULT)
     {
       GetContext (context).CreateSNEvent (m);
       return this;
     }
-
     public SNKit Register<T, U, V> (Action<T, U, V> m, string context = SNContextLevel.DEFAULT)
     {
       GetContext (context).CreateSNEvent (m);
       return this;
     }
-
     public SNKit Register<T, U, V, W> (Action<T, U, V, W> m, string context = SNContextLevel.DEFAULT)
     {
       GetContext (context).CreateSNEvent (m);
       return this;
     }
-
     public SNKit Register<T, U, V, W, X> (Action<T, U, V, W, X> m, string context = SNContextLevel.DEFAULT)
     {
       GetContext (context).CreateSNEvent (m);
       return this;
     }
-
     public SNKit Register<TResult> (Func<TResult> m, string context = SNContextLevel.DEFAULT)
     {
       GetContext (context).CreateSNEvent (m);
       return this;
     }
-
     public SNKit Register<T, TResult> (Func<T, TResult> m, string context = SNContextLevel.DEFAULT)
     {
       GetContext (context).CreateSNEvent (m);
       return this;
     }
-
     public SNKit Register<T, U, TResult> (Func<T, U, TResult> m, string context = SNContextLevel.DEFAULT)
     {
       GetContext (context).CreateSNEvent (m);
       return this;
     }
-
     public SNKit Register<T, U, V, TResult> (Func<T, U, V, TResult> m, string context = SNContextLevel.DEFAULT)
     {
       GetContext (context).CreateSNEvent (m);
       return this;
     }
-
     public SNKit Register<T, U, V, W, TResult> (Func<T, U, V, W, TResult> m, string context = SNContextLevel.DEFAULT)
     {
       GetContext (context).CreateSNEvent (m);
       return this;
     }
-
     public SNKit Register<T, U, V, W, X, TResult> (Func<T, U, V, W, X, TResult> m, string context = SNContextLevel.DEFAULT)
     {
       GetContext (context).CreateSNEvent (m);
@@ -223,7 +215,7 @@ namespace SNFramework
         foreach (var item in SNContexts.Values) {
           e = item.GetSNEvent (name);
           if (e != null) {
-            return e.DispatchHasReturn<TResult> (name, ref result);
+            return e.DispatchHasReturn (name, ref result);
           }
         }
         return false;
@@ -231,7 +223,7 @@ namespace SNFramework
 
       e = GetContext (context).GetSNEvent (name);
       if (e != null) {
-        return e.DispatchHasReturn<TResult> (name, ref result);
+        return e.DispatchHasReturn (name, ref result);
       }
       return false;
     }
@@ -244,7 +236,7 @@ namespace SNFramework
         foreach (var item in SNContexts.Values) {
           e = item.GetSNEvent (name);
           if (e != null) {
-            return e.DispatchHasReturn<T, TResult> (name, arg1, ref result);
+            return e.DispatchHasReturn (name, arg1, ref result);
           }
         }
         return false;
@@ -252,7 +244,7 @@ namespace SNFramework
 
       e = GetContext (context).GetSNEvent (name);
       if (e != null) {
-        return e.DispatchHasReturn<T, TResult> (name, arg1, ref result);
+        return e.DispatchHasReturn (name, arg1, ref result);
       }
       return false;
     }
@@ -265,7 +257,7 @@ namespace SNFramework
         foreach (var item in SNContexts.Values) {
           e = item.GetSNEvent (name);
           if (e != null) {
-            return e.DispatchHasReturn<T, U, TResult> (name, arg1, arg2, ref result);
+            return e.DispatchHasReturn (name, arg1, arg2, ref result);
           }
         }
         return false;
@@ -273,7 +265,7 @@ namespace SNFramework
 
       e = GetContext (context).GetSNEvent (name);
       if (e != null) {
-        return e.DispatchHasReturn<T, U, TResult> (name, arg1, arg2, ref result);
+        return e.DispatchHasReturn (name, arg1, arg2, ref result);
       }
       return false;
     }
@@ -286,7 +278,7 @@ namespace SNFramework
         foreach (var item in SNContexts.Values) {
           e = item.GetSNEvent (name);
           if (e != null) {
-            return e.DispatchHasReturn<T, U, V, TResult> (name, arg1, arg2, arg3, ref result);
+            return e.DispatchHasReturn (name, arg1, arg2, arg3, ref result);
           }
         }
         return false;
@@ -294,7 +286,7 @@ namespace SNFramework
 
       e = GetContext (context).GetSNEvent (name);
       if (e != null) {
-        return e.DispatchHasReturn<T, U, V, TResult> (name, arg1, arg2, arg3, ref result);
+        return e.DispatchHasReturn (name, arg1, arg2, arg3, ref result);
       }
       return false;
     }
@@ -307,7 +299,7 @@ namespace SNFramework
         foreach (var item in SNContexts.Values) {
           e = item.GetSNEvent (name);
           if (e != null) {
-            return e.DispatchHasReturn<T, U, V, W, TResult> (name, arg1, arg2, arg3, arg4, ref result);
+            return e.DispatchHasReturn (name, arg1, arg2, arg3, arg4, ref result);
           }
         }
         return false;
@@ -315,7 +307,7 @@ namespace SNFramework
 
       e = GetContext (context).GetSNEvent (name);
       if (e != null) {
-        return e.DispatchHasReturn<T, U, V, W, TResult> (name, arg1, arg2, arg3, arg4, ref result);
+        return e.DispatchHasReturn (name, arg1, arg2, arg3, arg4, ref result);
       }
       return false;
     }
@@ -328,7 +320,7 @@ namespace SNFramework
         foreach (var item in SNContexts.Values) {
           e = item.GetSNEvent (name);
           if (e != null) {
-            return e.DispatchHasReturn<T, U, V, W, X, TResult> (name, arg1, arg2, arg3, arg4, arg5, ref result);
+            return e.DispatchHasReturn (name, arg1, arg2, arg3, arg4, arg5, ref result);
           }
         }
         return false;
@@ -336,7 +328,7 @@ namespace SNFramework
 
       e = GetContext (context).GetSNEvent (name);
       if (e != null) {
-        return e.DispatchHasReturn<T, U, V, W, X, TResult> (name, arg1, arg2, arg3, arg4, arg5, ref result);
+        return e.DispatchHasReturn (name, arg1, arg2, arg3, arg4, arg5, ref result);
       }
       return false;
     }

@@ -14,6 +14,8 @@ namespace SNFramework
 
     SNKit ResetContext ();
 
+    SNKit Register (Delegate m, string context = SNContextLevel.DEFAULT);
+    
     SNKit Register (Action m, string context = SNContextLevel.DEFAULT);
 
     SNKit Register<T> (Action<T> m, string context = SNContextLevel.DEFAULT);
