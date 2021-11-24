@@ -1,6 +1,7 @@
 ﻿//if you hava any problem please email to keyle_xiao@hotmail.com
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace SNFramework
 {
@@ -46,6 +47,18 @@ namespace SNFramework
     ISNEvent Dispatch<T, U, V, W> (string name, T arg1, U arg2, V arg3, W arg4);
 
     ISNEvent Dispatch<T, U, V, W, X> (string name, T arg1, U arg2, V arg3, W arg4, X arg5);
+    
+    Task<ISNEvent> DispatchAsync (string name);
+
+    Task<ISNEvent> DispatchAsync<T> (string name, T arg1);
+
+    Task<ISNEvent> DispatchAsync<T, U> (string name, T arg1, U arg2);
+
+    Task<ISNEvent> DispatchAsync<T, U, V> (string name, T arg1, U arg2, V arg3);
+
+    Task<ISNEvent> DispatchAsync<T, U, V, W> (string name, T arg1, U arg2, V arg3, W arg4);
+
+    Task<ISNEvent> DispatchAsync<T, U, V, W, X> (string name, T arg1, U arg2, V arg3, W arg4, X arg5);
 
 
 
@@ -60,5 +73,18 @@ namespace SNFramework
     bool DispatchHasReturn<T, U, V, W, TResult> (string name, T arg1, U arg2, V arg3, W arg4, ref TResult result);
 
     bool DispatchHasReturn<T, U, V, W, X, TResult> (string name, T arg1, U arg2, V arg3, W arg4, X arg5, ref TResult result);
+    
+    
+    Task<TResult> DispatchHasReturnAsync<TResult> (string name);
+
+    Task<TResult> DispatchHasReturnAsync<T, TResult> (string name, T arg1);
+
+    Task<TResult> DispatchHasReturnAsync<T, U, TResult> (string name, T arg1, U arg2);
+
+    Task<TResult> DispatchHasReturnAsync<T, U, V, TResult> (string name, T arg1, U arg2, V arg3);
+
+    Task<TResult> DispatchHasReturnAsync<T, U, V, W, TResult> (string name, T arg1, U arg2, V arg3, W arg4);
+
+    Task<TResult> DispatchHasReturnAsync<T, U, V, W, X, TResult> (string name, T arg1, U arg2, V arg3, W arg4, X arg5);
   }
 }

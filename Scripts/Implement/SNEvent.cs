@@ -1,6 +1,8 @@
 ﻿//if you hava any problem please email to keyle_xiao@hotmail.com
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using UnityEngine;
 
 namespace SNFramework
 {
@@ -186,6 +188,37 @@ namespace SNFramework
       return this;
     }
 
+    public async Task<ISNEvent> DispatchAsync(string name)
+    {
+      await Task.Delay(10000);
+      return Dispatch(name);
+    }
+
+    public async Task<ISNEvent> DispatchAsync<T>(string name, T arg1)
+    {
+      return Dispatch(name,arg1);
+    }
+
+    public async Task<ISNEvent> DispatchAsync<T, U>(string name, T arg1, U arg2)
+    {
+      return Dispatch(name,arg1,arg2);
+    }
+
+    public async Task<ISNEvent> DispatchAsync<T, U, V>(string name, T arg1, U arg2, V arg3)
+    {
+      return Dispatch(name,arg1,arg2,arg3);
+    }
+
+    public async Task<ISNEvent> DispatchAsync<T, U, V, W>(string name, T arg1, U arg2, V arg3, W arg4)
+    {
+      return Dispatch(name,arg1,arg2,arg3,arg4);
+    }
+
+    public async Task<ISNEvent> DispatchAsync<T, U, V, W, X>(string name, T arg1, U arg2, V arg3, W arg4, X arg5)
+    {
+      return Dispatch(name,arg1,arg2,arg3,arg4,arg5);
+    }
+
     public bool DispatchHasReturn<TResult> (string name, ref TResult result)
     {
       System.Func<TResult> func = GetDelegate (name, typeof(System.Func<TResult>)) as System.Func<TResult>;
@@ -263,6 +296,48 @@ namespace SNFramework
         return true;
       }
       return false;
+    }
+    
+    public async Task<TResult> DispatchHasReturnAsync<TResult>(string name)
+    {
+      var result = default(TResult);
+      DispatchHasReturn(name, ref result);
+      return result;
+    }
+
+    public async Task<TResult> DispatchHasReturnAsync<T, TResult>(string name, T arg1)
+    {
+      var result = default(TResult);
+      DispatchHasReturn(name,arg1, ref result);
+      return result;
+    }
+
+    public async Task<TResult> DispatchHasReturnAsync<T, U, TResult>(string name, T arg1, U arg2)
+    {
+      var result = default(TResult);
+      DispatchHasReturn(name, arg1, arg2, ref result);
+      return result;
+    }
+
+    public async Task<TResult> DispatchHasReturnAsync<T, U, V, TResult>(string name, T arg1, U arg2, V arg3)
+    {
+      var result = default(TResult);
+      DispatchHasReturn(name,arg1,arg2,arg3,ref result);
+      return result;
+    }
+
+    public async Task<TResult> DispatchHasReturnAsync<T, U, V, W, TResult>(string name, T arg1, U arg2, V arg3, W arg4)
+    {
+      var result = default(TResult);
+      DispatchHasReturn(name,arg1,arg2,arg3,arg4,ref result);
+      return result;
+    }
+
+    public async Task<TResult> DispatchHasReturnAsync<T, U, V, W, X, TResult>(string name, T arg1, U arg2, V arg3, W arg4, X arg5)
+    {
+      var result = default(TResult);
+      DispatchHasReturn(name,arg1,arg2,arg3,arg4,arg5,ref result);
+      return result;
     }
 
     public override ISN Reset ()
