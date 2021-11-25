@@ -1,11 +1,26 @@
 ﻿//if you hava any problem please email to keyle_xiao@hotmail.com
 using SNFramework;
 using NUnit.Framework;
+using UnityEngine;
+using UnityEngine.TestTools;
 
 namespace SNTest
 {
-  public class SNKitTest
+  public class SNKitTest : IPrebuildSetup
   {
+    public void Setup()
+    {
+      SNKit.Instance.Reset();
+      Debug.Log("SNKitTest 启动前准备！");
+    }
+    
+    // [Test]
+    // [PrebuildSetup(typeof(SNKitTest))]
+    // public void SetupSNKitTest()
+    // {
+    //   Debug.Log("为SetupSNKitTest准备资源！");
+    // }
+    
     public string dispatchLevel = SNContextLevel.DEFAULT;
 
     [SNMethod (SNMsg.ExampleMsg)]
@@ -531,6 +546,6 @@ namespace SNTest
       Assert.AreEqual ((SNKit.Instance [SNContextLevel.DEFAULT].GetSNEvent (SNMsg.ExampleMsg) as SN).ResetTimes, 1);
     }
 
-   
+
   }
 }

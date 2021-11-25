@@ -3,12 +3,19 @@ using System;
 using System.Threading.Tasks;
 using SNFramework;
 using NUnit.Framework;
+using UnityEngine;
+using UnityEngine.TestTools;
 
 namespace SNTest
 {
-  public class SNEventTest
+  public class SNEventTest : IPrebuildSetup
   {
-
+    public void Setup()
+    {
+      SNKit.Instance.Reset();
+      Debug.Log("SNEventTest 启动前准备！");
+    }
+    
     [Test]
     public void RegisterSNEventTest0 ()
     {
