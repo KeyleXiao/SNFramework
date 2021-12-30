@@ -7,13 +7,11 @@ namespace SNFramework
   {
     public string IdentifiedSign { get; set; }
 
-    #if UNITY_EDITOR
     /// <summary>
     /// 用来检测当前代码段是否被重置
     /// </summary>
     /// <value>The reset times.</value>
     public int ResetTimes { get; set; }
-    #endif
 
     public SN ()
     {
@@ -22,9 +20,7 @@ namespace SNFramework
 
     public virtual ISN Log (string msg)
     {
-      #if UNITY_EDITOR
       throw new System.Exception (string.Format ("SNFramework Log [{0}]", msg));
-      #endif
     }
 
     public virtual ISN Reset ()
