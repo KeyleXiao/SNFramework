@@ -190,7 +190,7 @@ namespace SNFramework
 
     public async Task<ISNEvent> DispatchAsync(string name)
     {
-      await Task.Delay(10000);
+      //await Task.Delay(10000);
       return Dispatch(name);
     }
 
