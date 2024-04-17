@@ -5,6 +5,7 @@ SmartNotificationFramework/EventBus for Unity3d
 2015年 我在淘米写了一套 [消息传递机制](http://www.cnblogs.com/Keyle/p/4843934.html) 当然这一套在我的上家公司也得到验证。
 2016年 我在世纪创意基于2015年一版的消息传递进行了封装但是当时赶项目也没有引入。我称之为 [SmartNotificationFramework](https://gitee.com/keyle/SmartNotificationFramework) 我希望它能达到足够的灵活，在我看来它工作的还不错，但是太简陋。
 2018年 重构与完成了大部分的单元测试。SNFramework 是我正在使用的消息传递机制。它已经有了初步的理想功能，如消息上下分隔离，消息被阅读成功自动释放(即指执行一次)，广播消息等。
+2021年 添加Await/Async异步调用支持，并且增加了相对于的单元测试。
 
 # 用法
 因为本项目我一直在维护，所以还是推荐你阅读测试用例位于 <code>SNFramework/SNTest</code> 文件夹下。
