@@ -8,9 +8,12 @@ namespace SNFramework
 {
   public class SNEvent : SN, ISNEvent
   {
-    public SNEvent ()
+    private static readonly Task<ISNEvent> CompletedEventTask = Task.FromResult<ISNEvent>(null);
+    private static readonly Dictionary<Type, Dictionary<string, Delegate>> EmptyTable = new Dictionary<Type, Dictionary<string, Delegate>>();
+    
+    public SNEvent()
     {
-      SNTable = new Dictionary<Type, Dictionary<string, Delegate>> ();
+      SNTable = new Dictionary<Type, Dictionary<string, Delegate>>(8); // 预分配初始容量
     }
 
     /// <summary>
@@ -21,48 +24,54 @@ namespace SNFramework
 
     protected Dictionary<Type, Dictionary<string, Delegate>> SNTable { get; set; }
 
-    public ISNEvent Unregister (string name, Delegate handler)
+    public ISNEvent Unregister(string name, Delegate handler)
     {
-      if (SNTable == null) {
-        Reset ();
+      if (SNTable == null)
+      {
+        Reset();
         return this;
       }
 
-
-      Dictionary<string, Delegate> dictionary;
-      Delegate source;
-      if (SNTable.TryGetValue (handler.GetType (), out dictionary) && dictionary.TryGetValue (name, out source)) {
-        dictionary [name] = Delegate.Remove (source, handler);
+      if (SNTable.TryGetValue(handler.GetType(), out var dictionary) && 
+          dictionary.TryGetValue(name, out var source))
+      {
+        dictionary[name] = Delegate.Remove(source, handler);
       }
 
       return this;
     }
 
-    protected Delegate GetDelegate (string name, Type type)
+    protected Delegate GetDelegate(string name, Type type)
     {
-      Dictionary<string, Delegate> dictionary;
-      Delegate result;
-      if (SNTable != null && SNTable.TryGetValue (type, out dictionary) && dictionary.TryGetValue (name, out result)) {
+      if (SNTable != null && 
+          SNTable.TryGetValue(type, out var dictionary) && 
+          dictionary.TryGetValue(name, out var result))
+      {
         return result;
       }
       return null;
     }
 
-    public ISNEvent Register (string name, Delegate handler)
+    public ISNEvent Register(string name, Delegate handler)
     {
-      if (SNTable == null) {
-        SNTable = new Dictionary<Type, Dictionary<string, Delegate>> ();
+      if (SNTable == null)
+      {
+        SNTable = new Dictionary<Type, Dictionary<string, Delegate>>(8);
       }
-      Dictionary<string, Delegate> dictionary;
-      if (!SNTable.TryGetValue (handler.GetType (), out dictionary)) {
-        dictionary = new Dictionary<string, Delegate> ();
-        SNTable.Add (handler.GetType (), dictionary); //Create new instance
+      
+      if (!SNTable.TryGetValue(handler.GetType(), out var dictionary))
+      {
+        dictionary = new Dictionary<string, Delegate>(4);
+        SNTable.Add(handler.GetType(), dictionary);
       }
-      Delegate a;
-      if (dictionary.TryGetValue (name, out a)) {
-        dictionary [name] = Delegate.Combine (a, handler);
-      } else {
-        dictionary.Add (name, handler);
+      
+      if (dictionary.TryGetValue(name, out var existingDelegate))
+      {
+        dictionary[name] = Delegate.Combine(existingDelegate, handler);
+      }
+      else
+      {
+        dictionary.Add(name, handler);
       }
       return this;
     }
@@ -188,35 +197,40 @@ namespace SNFramework
       return this;
     }
 
-    public async Task<ISNEvent> DispatchAsync(string name)
+    public Task<ISNEvent> DispatchAsync(string name)
     {
-      //await Task.Delay(10000);
-      return Dispatch(name);
+      Dispatch(name);
+      return CompletedEventTask;
     }
 
-    public async Task<ISNEvent> DispatchAsync<T>(string name, T arg1)
+    public Task<ISNEvent> DispatchAsync<T>(string name, T arg1)
     {
-      return Dispatch(name,arg1);
+      Dispatch(name, arg1);
+      return CompletedEventTask;
     }
 
-    public async Task<ISNEvent> DispatchAsync<T, U>(string name, T arg1, U arg2)
+    public Task<ISNEvent> DispatchAsync<T, U>(string name, T arg1, U arg2)
     {
-      return Dispatch(name,arg1,arg2);
+      Dispatch(name, arg1, arg2);
+      return CompletedEventTask;
     }
 
-    public async Task<ISNEvent> DispatchAsync<T, U, V>(string name, T arg1, U arg2, V arg3)
+    public Task<ISNEvent> DispatchAsync<T, U, V>(string name, T arg1, U arg2, V arg3)
     {
-      return Dispatch(name,arg1,arg2,arg3);
+      Dispatch(name, arg1, arg2, arg3);
+      return CompletedEventTask;
     }
 
-    public async Task<ISNEvent> DispatchAsync<T, U, V, W>(string name, T arg1, U arg2, V arg3, W arg4)
+    public Task<ISNEvent> DispatchAsync<T, U, V, W>(string name, T arg1, U arg2, V arg3, W arg4)
     {
-      return Dispatch(name,arg1,arg2,arg3,arg4);
+      Dispatch(name, arg1, arg2, arg3, arg4);
+      return CompletedEventTask;
     }
 
-    public async Task<ISNEvent> DispatchAsync<T, U, V, W, X>(string name, T arg1, U arg2, V arg3, W arg4, X arg5)
+    public Task<ISNEvent> DispatchAsync<T, U, V, W, X>(string name, T arg1, U arg2, V arg3, W arg4, X arg5)
     {
-      return Dispatch(name,arg1,arg2,arg3,arg4,arg5);
+      Dispatch(name, arg1, arg2, arg3, arg4, arg5);
+      return CompletedEventTask;
     }
 
     public bool DispatchHasReturn<TResult> (string name, ref TResult result)
@@ -346,9 +360,13 @@ namespace SNFramework
 
       base.Reset ();
       if (SNTable != null) {
-        SNTable.Clear ();
+        foreach(var dict in SNTable.Values)
+        {
+          dict.Clear();
+        }
+        SNTable.Clear();
       } else {
-        SNTable = new Dictionary<Type, Dictionary<string, Delegate>> ();
+        SNTable = new Dictionary<Type, Dictionary<string, Delegate>>(8);
       }
       return this;
     }

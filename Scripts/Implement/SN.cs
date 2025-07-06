@@ -5,6 +5,9 @@ namespace SNFramework
 {
   public class SN : ISN
   {
+    private const string LOG_PREFIX = "SNFramework Log [";
+    private const string LOG_SUFFIX = "]";
+    
     public string IdentifiedSign { get; set; }
 
     /// <summary>
@@ -15,12 +18,12 @@ namespace SNFramework
 
     public SN ()
     {
-      IdentifiedSign = (Guid.NewGuid ()).ToString ();
+      IdentifiedSign = Guid.NewGuid().ToString();
     }
 
     public virtual ISN Log (string msg)
     {
-      throw new System.Exception (string.Format ("SNFramework Log [{0}]", msg));
+      throw new System.Exception(LOG_PREFIX + msg + LOG_SUFFIX);
     }
 
     public virtual ISN Reset ()

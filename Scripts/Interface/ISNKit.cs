@@ -14,6 +14,34 @@ namespace SNFramework
 
     SNKit ResetContext ();
 
+    void UnRegister(string event_name, string context = SNContextLevel.DEFAULT);
+
+    SNKit UnRegister(Delegate m, string context = SNContextLevel.DEFAULT);
+
+    SNKit UnRegister(Action m, string context = SNContextLevel.DEFAULT);
+
+    SNKit UnRegister<T>(Action<T> m, string context = SNContextLevel.DEFAULT);
+
+    SNKit UnRegister<T, U>(Action<T, U> m, string context = SNContextLevel.DEFAULT);
+
+    SNKit UnRegister<T, U, V>(Action<T, U, V> m, string context = SNContextLevel.DEFAULT);
+
+    SNKit UnRegister<T, U, V, W>(Action<T, U, V, W> m, string context = SNContextLevel.DEFAULT);
+
+    SNKit UnRegister<T, U, V, W, X>(Action<T, U, V, W, X> m, string context = SNContextLevel.DEFAULT);
+
+    SNKit UnRegister<TResult>(Func<TResult> m, string context = SNContextLevel.DEFAULT);
+
+    SNKit UnRegister<T, TResult>(Func<T, TResult> m, string context = SNContextLevel.DEFAULT);
+
+    SNKit UnRegister<T, U, TResult>(Func<T, U, TResult> m, string context = SNContextLevel.DEFAULT);
+
+    SNKit UnRegister<T, U, V, TResult>(Func<T, U, V, TResult> m, string context = SNContextLevel.DEFAULT);
+
+    SNKit UnRegister<T, U, V, W, TResult>(Func<T, U, V, W, TResult> m, string context = SNContextLevel.DEFAULT);
+
+    SNKit UnRegister<T, U, V, W, X, TResult>(Func<T, U, V, W, X, TResult> m, string context = SNContextLevel.DEFAULT);
+
     SNKit Register (Delegate m, string context = SNContextLevel.DEFAULT);
     
     SNKit Register (Action m, string context = SNContextLevel.DEFAULT);

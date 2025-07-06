@@ -1,4 +1,4 @@
-//if you hava any problem please email to keyle_xiao@hotmail.com
+﻿//if you hava any problem please email to keyle_xiao@hotmail.com
 using System;
 using System.Collections.Generic;
 
@@ -27,7 +27,7 @@ namespace SNFramework
         {
             removeContext = null;
 
-            if (!SNContexts.TryGetValue(event_name, out removeContext))
+            if (!SNContexts.TryGetValue(context, out removeContext))
             {
                 return;
             }
@@ -40,6 +40,76 @@ namespace SNFramework
             }
 
             removeContext.RemoveSNEvent(removeEventTemp);
+        }
+
+        public SNKit UnRegister(Delegate m, string context = SNContextLevel.DEFAULT)
+        {
+            var atr = m.Method.GetCustomAttributes(false)[0] as SNMethodAttribute;
+            if (atr != null)
+            {
+                UnRegister(atr.SNEventName, context);
+            }
+            return this;
+        }
+
+        public SNKit UnRegister(Action m, string context = SNContextLevel.DEFAULT)
+        {
+            return UnRegister((Delegate)m, context);
+        }
+
+        public SNKit UnRegister<T>(Action<T> m, string context = SNContextLevel.DEFAULT)
+        {
+            return UnRegister((Delegate)m, context);
+        }
+
+        public SNKit UnRegister<T, U>(Action<T, U> m, string context = SNContextLevel.DEFAULT)
+        {
+            return UnRegister((Delegate)m, context);
+        }
+
+        public SNKit UnRegister<T, U, V>(Action<T, U, V> m, string context = SNContextLevel.DEFAULT)
+        {
+            return UnRegister((Delegate)m, context);
+        }
+
+        public SNKit UnRegister<T, U, V, W>(Action<T, U, V, W> m, string context = SNContextLevel.DEFAULT)
+        {
+            return UnRegister((Delegate)m, context);
+        }
+
+        public SNKit UnRegister<T, U, V, W, X>(Action<T, U, V, W, X> m, string context = SNContextLevel.DEFAULT)
+        {
+            return UnRegister((Delegate)m, context);
+        }
+
+        public SNKit UnRegister<TResult>(Func<TResult> m, string context = SNContextLevel.DEFAULT)
+        {
+            return UnRegister((Delegate)m, context);
+        }
+
+        public SNKit UnRegister<T, TResult>(Func<T, TResult> m, string context = SNContextLevel.DEFAULT)
+        {
+            return UnRegister((Delegate)m, context);
+        }
+
+        public SNKit UnRegister<T, U, TResult>(Func<T, U, TResult> m, string context = SNContextLevel.DEFAULT)
+        {
+            return UnRegister((Delegate)m, context);
+        }
+
+        public SNKit UnRegister<T, U, V, TResult>(Func<T, U, V, TResult> m, string context = SNContextLevel.DEFAULT)
+        {
+            return UnRegister((Delegate)m, context);
+        }
+
+        public SNKit UnRegister<T, U, V, W, TResult>(Func<T, U, V, W, TResult> m, string context = SNContextLevel.DEFAULT)
+        {
+            return UnRegister((Delegate)m, context);
+        }
+
+        public SNKit UnRegister<T, U, V, W, X, TResult>(Func<T, U, V, W, X, TResult> m, string context = SNContextLevel.DEFAULT)
+        {
+            return UnRegister((Delegate)m, context);
         }
 
         public SNKit Register(Delegate m, string context = SNContextLevel.DEFAULT)

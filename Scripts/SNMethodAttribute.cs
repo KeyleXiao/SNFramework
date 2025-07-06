@@ -9,7 +9,7 @@ namespace SNFramework
     public readonly string SNEventName;
     public readonly bool AutoRelease;
 
-    public SNMethodAttribute (string snEventName, bool autoRelease = true)
+    public SNMethodAttribute (string snEventName, bool autoRelease = false)
     {
       AutoRelease = autoRelease;
       SNEventName = snEventName;
