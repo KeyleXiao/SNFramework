@@ -6,6 +6,7 @@ namespace SNFramework
 {
     public class SNKit : SN, ISNKit
     {
+        public Action<Exception> OnEventHandlerException { get; set; }
         public Dictionary<string, ISNContext> SNContexts { get; set; }
 
         private SNKit() : base()
@@ -23,7 +24,7 @@ namespace SNFramework
         ISNEvent removeEventTemp = null;
         ISNContext removeContext = null;
 
-        public void UnRegister(string event_name, string context = SNContextLevel.DEFAULT)
+        public void UnRegister(string event_name, Delegate m, string context = SNContextLevel.DEFAULT)
         {
             removeContext = null;
 
@@ -39,7 +40,7 @@ namespace SNFramework
                 return;
             }
 
-            removeContext.RemoveSNEvent(removeEventTemp);
+            removeContext.Release(removeEventTemp, event_name, m);
         }
 
         public SNKit UnRegister(Delegate m, string context = SNContextLevel.DEFAULT)
@@ -47,7 +48,7 @@ namespace SNFramework
             var atr = m.Method.GetCustomAttributes(false)[0] as SNMethodAttribute;
             if (atr != null)
             {
-                UnRegister(atr.SNEventName, context);
+                UnRegister(atr.SNEventName, m, context);
             }
             return this;
         }

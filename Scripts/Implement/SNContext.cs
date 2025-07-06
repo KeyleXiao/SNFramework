@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
+using System.Threading.Tasks;
+using UnityEngine;
 
 namespace SNFramework
 {
@@ -175,13 +177,44 @@ namespace SNFramework
             ISNEvent e = GetEventFromPool();
             e.AutoRelease = false;
             e.IdentifiedSign = identifiedEventName;
+            e.ParentContext = this;
             Context.Add(e);
             return e;
         }
 
         public ISNEvent CreateSNEvent(Delegate g)
         {
-            var atr = g.Method.GetCustomAttributes(false)[0] as SNMethodAttribute;
+            // 获取方法上的所有特性
+            var attributes = g.Method.GetCustomAttributes(false);
+            SNMethodAttribute atr = null;
+
+            // 查找SNMethodAttribute
+            foreach (var attr in attributes)
+            {
+                if (attr is SNMethodAttribute methodAttr)
+                {
+                    atr = methodAttr;
+                    break;
+                }
+            }
+
+            // 如果没有找到SNMethodAttribute，检查是否是异步方法
+            if (atr == null)
+            {
+                var returnType = g.Method.ReturnType;
+                if (returnType == typeof(Task) ||
+                    (returnType.IsGenericType && returnType.GetGenericTypeDefinition() == typeof(Task<>)))
+                {
+                    // 对于异步方法，我们创建一个默认的SNMethodAttribute
+                    atr = new SNMethodAttribute(g.Method.Name, true);  // 默认设置autoRelease为true
+                }
+                else
+                {
+                    // 如果既不是异步方法也没有SNMethodAttribute，抛出异常
+                    throw new InvalidOperationException($"Method {g.Method.Name} must be marked with SNMethodAttribute or be an async method.");
+                }
+            }
+
             var existingEvent = FindEventBySign(atr.SNEventName);
 
             if (existingEvent != null)
@@ -192,6 +225,7 @@ namespace SNFramework
             ISNEvent e = GetEventFromPool();
             e.AutoRelease = atr.AutoRelease;
             e.IdentifiedSign = atr.SNEventName;
+            e.ParentContext = this;
             e.Register(atr.SNEventName, g);
             return UpdateSNEvent(e);
         }
@@ -200,6 +234,22 @@ namespace SNFramework
         {
             get { return GetSNEvent(identifiedSign); }
             set { SetSNEvent(identifiedSign, value); }
+        }
+
+        public ISNContext Release(ISNEvent sn)
+        {
+            return RemoveSNEvent(sn);
+        }
+
+        public ISNContext Release(ISNEvent sn, string sign, Delegate handler)
+        {
+            // 细化release，精确移除特定的委托处理器
+            if (sn == null || handler == null) return this;
+
+            // 从事件中移除特定的委托处理器
+            sn.Unregister(sign, handler);
+
+            return this;
         }
     }
 }

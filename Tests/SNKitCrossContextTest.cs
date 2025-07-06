@@ -365,8 +365,12 @@ public class SNKitCrossContextTest
         Assert.IsTrue(SNKit.Instance.DispatchHasReturn(SNMsg.ExampleMsg, 1, ref TestInt, dispatchLevel));
         Assert.AreEqual(1, TestInt);
 
+        //由于被release掉了，所以再次调用不会触发
+        Assert.IsFalse(SNKit.Instance.DispatchHasReturn(SNMsg.ExampleMsg, 2, ref TestInt, dispatchLevel));
+
+        SNKit.Instance.Register<int, int>(TestHasReturn1);
         TestInt = 2;
-        Assert.IsFalse(SNKit.Instance.DispatchHasReturn(SNMsg.ExampleMsg, 1, ref TestInt, dispatchLevel));
+        Assert.IsTrue(SNKit.Instance.DispatchHasReturn(SNMsg.ExampleMsg, 2, ref TestInt, dispatchLevel));
         Assert.AreEqual(2, TestInt);
     }
 

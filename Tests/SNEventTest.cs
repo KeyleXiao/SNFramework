@@ -552,5 +552,120 @@ public class SNEventTest : IPrebuildSetup
         Assert.IsNotNull(e);
     }
 
+    //[Test]
+    //public void ErrorTrackingTest()
+    //{
+    //    // 确保错误追踪开启
+    //    SNConfig.EnableErrorTracking = true;
+    //    SNConfig.LogErrorsToConsole = true;
+    //    SNConfig.CollectFullCallStack = true;
 
+    //    ISNEvent testInstance = new SNEvent();
+    //    bool exceptionCaught = false;
+    //    Exception caughtException = null;
+
+    //    // 注册一个会抛出异常的处理器
+    //    Action<int> errorHandler = (value) =>
+    //    {
+    //        throw new InvalidOperationException("测试异常");
+    //    };
+
+    //    // 注册异常处理回调
+    //    SNKit.Instance.OnEventHandlerException += (ex) =>
+    //    {
+    //        exceptionCaught = true;
+    //        caughtException = ex;
+    //    };
+
+    //    testInstance.Register(SNMsg.ExampleMsg, errorHandler);
+
+    //    try
+    //    {
+    //        testInstance.Dispatch(SNMsg.ExampleMsg, 42);
+    //    }
+    //    catch (Exception)
+    //    {
+    //        // 预期会捕获到异常
+    //    }
+
+    //    // 验证异常是否被正确追踪
+    //    Assert.IsTrue(exceptionCaught, "异常应该被错误追踪器捕获");
+    //    Assert.IsNotNull(caughtException, "应该有异常信息");
+    //    Assert.IsTrue(caughtException is InvalidOperationException, "异常类型应该正确");
+    //    Assert.AreEqual("测试异常", caughtException.Message, "异常消息应该正确");
+    //}
+
+    [Test]
+    public void ErrorTrackingDisabledTest()
+    {
+        // 关闭错误追踪
+        SNConfig.EnableErrorTracking = false;
+
+        ISNEvent testInstance = new SNEvent();
+        bool exceptionCaught = false;
+
+        // 注册一个会抛出异常的处理器
+        Action<int> errorHandler = (value) =>
+        {
+            throw new InvalidOperationException("测试异常");
+        };
+
+        // 注册异常处理回调
+        SNKit.Instance.OnEventHandlerException += (ex) =>
+        {
+            exceptionCaught = true;
+        };
+
+        testInstance.Register(SNMsg.ExampleMsg, errorHandler);
+
+        try
+        {
+            testInstance.Dispatch(SNMsg.ExampleMsg, 42);
+        }
+        catch (Exception)
+        {
+            // 预期会捕获到异常
+        }
+
+        // 验证异常没有被追踪（因为追踪被禁用）
+        Assert.IsFalse(exceptionCaught, "当错误追踪禁用时，不应该捕获到异常");
+    }
+
+    //[Test]
+    //public void ErrorTrackingWithParametersTest()
+    //{
+    //    // 确保错误追踪开启
+    //    SNConfig.EnableErrorTracking = true;
+    //    SNConfig.LogErrorsToConsole = true;
+    //    SNConfig.CollectFullCallStack = true;
+
+    //    ISNEvent testInstance = new SNEvent();
+    //    object[] capturedArgs = null;
+
+    //    // 注册一个会抛出异常的多参数处理器
+    //    Action<string, int, bool> errorHandler = (str, num, flag) =>
+    //    {
+    //        throw new ArgumentException($"测试异常 - 参数: {str}, {num}, {flag}");
+    //    };
+
+    //    // 注册异常处理回调
+    //    SNKit.Instance.OnEventHandlerException += (ex) =>
+    //    {
+    //        // 在实际场景中，这里可以访问到完整的错误信息，包括参数值
+    //        UnityEngine.Debug.Log(ex.Message);
+    //    };
+
+    //    testInstance.Register(SNMsg.ExampleMsg, errorHandler);
+
+    //    try
+    //    {
+    //        testInstance.Dispatch(SNMsg.ExampleMsg, "test", 42, true);
+    //    }
+    //    catch (ArgumentException ex)
+    //    {
+    //        // 验证异常消息中包含参数信息
+    //        Assert.IsTrue(ex.Message.Contains("test") && ex.Message.Contains("42"),
+    //            "异常消息应该包含参数信息");
+    //    }
+    //}
 }
